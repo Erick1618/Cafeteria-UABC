@@ -52,42 +52,11 @@
                     $_SESSION['id'] = $_GET['id'];
                 }
             }
-
-            // Varaibles de registro
-            $correo = $_SESSION['user_email_address'];
-            $dominio = explode("@", $correo);
-
-            if ($dominio[1] == "uabc.edu.mx") {
-                $estudiante = true;
-            }
-
-            // Conexion
-            require('datos_conexion.php');
-
-            $conexion = mysqli_connect($db_host, $db_usuario, $db_contra);
-
-            if (mysqli_connect_errno()) {
-                echo "Fallo al conectar con la BBDD";
-                exit();
-            }
-
-            mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
-            mysqli_set_charset($conexion, "utf8");
-
-            $consulta = "SELECT ID_EMPLEADO FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
-            $resultados = mysqli_query($conexion, $consulta);
-
-            $seleccion = mysqli_fetch_array($resultados);
-
-            if ($id) {
-                $estudiante = false;
-            }
-
         }
 
         //Ancla para iniciar sesión
         if (!isset($_SESSION['access_token'])) {
-            $login_button = '<a href="' . $google_client->createAuthUrl() . '" style=" background: #dd4b39; border-radius: 5px; color: white; display: block; font-weight: bold; padding: 20px; text-align: center; text-decoration: none; width: 200px;">Login With Google</a>';
+            header ("Location: ../index.php");
         }
 
         echo '<div class="card-header">Welcome User</div><div class="card-body">';

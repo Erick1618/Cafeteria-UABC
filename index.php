@@ -96,14 +96,6 @@
                     $consulta = "INSERT INTO clientes (nombre_cliente, correo_cliente, puntos) VALUE ('$nombre', '$correo', '$puntos')";
                     $resultados = mysqli_query($conexion, $consulta);
 
-                    if ($resultados == false) {
-                        echo "Error en el registro";
-                    }
-
-                    else {
-                        echo "Se ha creado un nuevo registro";
-                    }
-
                     $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
                     $resultados = mysqli_query($conexion, $consulta);
                     echo "Consulta: " . $consulta;
@@ -114,6 +106,10 @@
                     $_SESSION['id'] = $id_cliente;
                     $_SESSION['puntos'] = $puntos;
                 }
+            }
+
+            else {
+                header ("Location: 404.html");
             }
         }
     }
@@ -175,18 +171,18 @@
                             }
 
                             if ($estudiante == true){
-                                echo '<div class="card-header">Welcome User</div><div class="card-body">';
-                                echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
-                                echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
-                                echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
-                                echo '<h3><b>ID :</b> ' . $_SESSION['id'] . '</h3>';
-                                echo '<h3><b>Puntos :</b> ' . $puntos . '</h3>';
-                                echo '<h3><b>Rol :</b> ESTUDIANTE </h3>';
-                                // echo "<script> 
-                                // <!--
-                                // window.location.replace('http://cafeteria-prueba.com/Clientes/index.php'); 
-                                // -->
-                                // </script>";
+                                // echo '<div class="card-header">Welcome User</div><div class="card-body">';
+                                // echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
+                                // echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
+                                // echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
+                                // echo '<h3><b>ID :</b> ' . $_SESSION['id'] . '</h3>';
+                                // echo '<h3><b>Puntos :</b> ' . $puntos . '</h3>';
+                                // echo '<h3><b>Rol :</b> ESTUDIANTE </h3>';
+                                echo "<script> 
+                                <!--
+                                window.location.replace('http://cafeteria-prueba.com/Clientes/index.php'); 
+                                -->
+                                </script>";
                             }
 
                             echo '<h3><a href="logout.php">Logout</h3></div>';
