@@ -58,15 +58,16 @@
         mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
         mysqli_set_charset($conexion, "utf8");
 
-        $consulta = "SELECT ID_EMPLEADO FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
+        $consulta = "SELECT * FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
         $resultados = mysqli_query($conexion, $consulta);
 
         if (mysqli_num_rows($resultados) == 1){
             $seleccion = mysqli_fetch_array($resultados);
-            $id_empleado = $seleccion['ID_EMPLEADO'];
+            $id_empleado = $seleccion['id_empleado'];
             $id_cliente = 0;
 
             $_SESSION['id'] = $id_empleado;
+            $status = $seleccion['status'];
 
             $estudiante = false;
         }
@@ -125,7 +126,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>PHP Login using Google Account</title>
+    <title>Login using Google Account</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -152,7 +153,7 @@
                             // echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
                             // echo '<h3><b>ID :</b> ' . $id . '</h3>';
 
-                            if ($id_empleado == 1 && $estudiante == false){
+                            if ($status == 1 && $estudiante == false){
                                 // echo '<h3><b>Rol :</b> ADMINISTRADOR </h3>';
                                 echo "<script> 
                                 <!--
@@ -161,7 +162,7 @@
                                 </script>";
                             }
 
-                            if ($id_empleado > 1 && $estudiante == false){
+                            if ($status == 2 && $estudiante == false){
                                 //echo '<h3><b>Rol :</b> EMPLEADO </h3>';
                                 echo "<script> 
                                 <!--

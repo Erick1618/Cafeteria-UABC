@@ -135,8 +135,10 @@
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
-                            <span >
-                                Cafeteria
+                            <span>
+                                <?php
+                                echo $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'];
+                                ?>
                             </span>
                         </a>
                     </div>
@@ -146,10 +148,7 @@
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
-                        data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                            class="ti-more"></i></a>
+
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -159,6 +158,7 @@
         </header>
      <!-- sidebar botones -->
         <aside class="left-sidebar" data-sidebarbg="skin6">
+            
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar" data-sidebarbg="skin6">
                 <!-- Sidebar navigation-->

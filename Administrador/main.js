@@ -84,9 +84,10 @@ $(document).ready(function () {
         let fila = $(this);
 
         id_empleado = parseInt($(this).closest('tr').find('td:eq(0)').text());
+        nombre_empleado = ($(this).closest('tr').find('td:eq(1)').text());
         opcion = 3; //eliminar      
 
-        var respuesta = confirm("¿Está seguro de borrar el registro " + id_empleado + "?");
+        var respuesta = confirm("¿Está seguro de borrar el registro de " + nombre_empleado + "?");
         if (respuesta) {
             $.ajax({
                 url: "bd/crud.php",

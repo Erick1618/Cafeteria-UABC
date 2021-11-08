@@ -14,7 +14,8 @@
     switch($opcion){
         // Insertar
         case 1:
-            $consulta = "INSERT INTO empleados (nombre_empleado, correo_empleado, telefono_empleado) VALUES('$nombre_empleado', '$correo_empleado', '$telefono_empleado') ";			
+            $status = 2;
+            $consulta = "INSERT INTO empleados (nombre_empleado, correo_empleado, telefono_empleado, status) VALUES('$nombre_empleado', '$correo_empleado', '$telefono_empleado', '$status') ";			
             $resultado = $conexion->prepare($consulta);
             $resultado->execute(); 
             
