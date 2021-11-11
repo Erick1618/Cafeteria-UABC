@@ -39,8 +39,15 @@
             }
 
             $_SESSION['id'] = 0;
-        }
+        } 
+    }
 
+    //Ancla para iniciar sesión
+    if (!isset($_SESSION['access_token'])) {
+        $login_button = '<a href="' . $google_client->createAuthUrl() . '" style=" background: #dd4b39; border-radius: 5px; color: white; display: block; font-weight: bold; padding: 20px; text-align: center; text-decoration: none; width: 200px;">Login With Google</a>';
+    }
+
+    else {
         // Varaibles de registro
         $correo = $_SESSION['user_email_address'];
         $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
@@ -115,11 +122,6 @@
         }
     }
 
-    //Ancla para iniciar sesión
-    if (!isset($_SESSION['access_token'])) {
-        $login_button = '<a href="' . $google_client->createAuthUrl() . '" style=" background: #dd4b39; border-radius: 5px; color: white; display: block; font-weight: bold; padding: 20px; text-align: center; text-decoration: none; width: 200px;">Login With Google</a>';
-    }
-
 ?>
 
 <html>
@@ -185,9 +187,9 @@
                                 -->
                                 </script>";
                             }
-
-                            echo '<h3><a href="logout.php">Logout</h3></div>';
-                        } else {
+                        } 
+                        
+                        else {
                             echo '<div align="center">' . $login_button . '</div>';
                         }
                     ?>
