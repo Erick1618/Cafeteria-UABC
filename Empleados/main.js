@@ -15,7 +15,7 @@ $(document).ready(function () {
             { "data": "nombre_empleado" },
             { "data": "correo_empleado" },
             { "data": "telefono_empleado" },
-            { "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>" }
+            { "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>" }
         ]
     });
 
@@ -54,7 +54,7 @@ $(document).ready(function () {
         $("#formUsuarios").trigger("reset");
         $(".modal-header").css("background-color", "#17a2b8");
         $(".modal-header").css("color", "white");
-        $(".modal-title").text("Nuevo platillo");
+        $(".modal-title").text("Alta de Usuario");
         $('#modalCRUD').modal('show');
     });
 

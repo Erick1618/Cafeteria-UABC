@@ -4,11 +4,9 @@
     $objeto = new Conexion();
     $conexion = $objeto->Conectar();
 
-    $nombre_platillo = (isset($_POST['nombre_platillo'])) ? $_POST['nombre_platillo'] : '';
-    $descripcion_platillo = (isset($_POST['descripcion_platillo'])) ? $_POST['descripcion_platillo'] : '';
-    $precio_platillo = (isset($_POST['precio_platillo'])) ? $_POST['precio_platillo'] : '';
-    $foto_platillo = (isset($_POST['foto_platillo'])) ? $_POST['foto_platillo'] : '';
-    
+    $nombre_empleado = (isset($_POST['nombre_empleado'])) ? $_POST['nombre_empleado'] : '';
+    $correo_empleado = (isset($_POST['correo_empleado'])) ? $_POST['correo_empleado'] : '';
+    $telefono_empleado = (isset($_POST['telefono_empleado'])) ? $_POST['telefono_empleado'] : '';
     
     $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
     $id_empleado = (isset($_POST['id_empleado'])) ? $_POST['id_empleado'] : '';
