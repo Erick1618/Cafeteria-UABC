@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/LOGOuabc.png">
-	<title>Cafeteria-UABC</title>
+	<title> Cafeteria-UABC </title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="./css/main.css">
@@ -192,22 +192,22 @@
 			<!-- SideBar Menu -->
 			<ul class="list-unstyled full-box dashboard-sideBar-Menu"  >
 				<li>
-					<a href="./../Empleados/admin.php">
+					<a href="./admin.php">
 						<i class="zmdi zmdi-apps"></i> Scan QR
 					</a>
 				</li>
 				<li>
-					<a href="index.php" >
+					<a href="./../Administrador/index.php" >
 						<i class="zmdi zmdi-accounts"></i> Empleados 
 					</a>
 				</li>
 				<li>
-					<a href="./../Empleados/index.php" class="btn-sideBar-SubMenu">
+					<a href="./index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-cutlery"></i> Platillos
 					</a>
 				</li>
 				<li>
-					<a href="./../Empleados/menu.php" class="btn-sideBar-SubMenu">
+					<a href="./menu.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-menu"></i> Menu 
 					</a>
 					
@@ -239,14 +239,6 @@
 		</nav>
 		<!-- Content page -->
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12">
-					<button id="btnNuevo" type="button" class="btn " data-toggle="modal" ><i
-							class="material-icons" >library_add</i></button>
-				</div>
-			</div>
-		</div>
-		<div class="container-fluid">
 			<div class="container caja">
 				<div class="row">
 					<div class="col-lg-12">
@@ -255,14 +247,114 @@
 								style="width:100%">
 								<thead class="text-center">
 									<tr>
-										<th>id_empleado</th>
-                                        <th>nombre_empleado</th>
-                                        <th>correo_empleado</th>
-                                        <th>telefono_empleado</th>
-                                        <th>Acciones</th>
+										<th>Nombre Platillo</th>
+                                        <th>Categoria</th>
+                                        <th>Mostrar Platillo</th>
 									</tr>
 								</thead>
 								<tbody>
+                                    <?php 
+                                        $sql = "SELECT * FROM platillos";
+                                        $result = mysqli_query($conexion, $sql);
+
+                                        while($row = mysqli_fetch_array($result)){
+                                            echo '<tr>';
+                                                ////////////////////////////////////////////////////////////////////////////////////////////////
+
+                                                echo '<td>' . $row['nombre_platillo'] . '</td>';
+
+                                                ///////////////////////////////////////////////////////////////////////////////////////////////
+
+                                                if ($row['categoria_platillo'] == 0){
+                                                    echo 
+                                                    '<td> 
+                                                    
+                                                        <select class="form-control" id="categoria_platillo" name="categoria_platillo" onchange="categoria(' . $row["id_platillo"] . ', this);">
+                                                            <option value="0">Seleccione una categoria</option>
+                                                            <option value="1"> Extras </option>
+                                                            <option value="2"> Bebidas </option>
+                                                            <option value="3"> Sandwiches </option>
+                                                            <option value="4"> Desayunos </option>
+                                                        </select>
+
+                                                    </td>';
+                                                }
+                                                if ($row['categoria_platillo'] == 1){
+                                                    echo 
+                                                    '<td> 
+                                                    
+                                                        <select class="form-control" id="categoria_platillo" name="categoria_platillo" onchange="categoria(' . $row["id_platillo"] . ', this);">
+                                                            <option value="1"> Extras </option>
+                                                            <option value="2"> Bebidas </option>
+                                                            <option value="3"> Sandwiches </option>
+                                                            <option value="4"> Desayunos </option>
+                                                        </select>
+
+                                                    </td>';
+                                                }
+                                                if ($row['categoria_platillo'] == 2){
+                                                    echo 
+                                                    '<td> 
+                                                    
+                                                        <select class="form-control" id="categoria_platillo" name="categoria_platillo" onchange="categoria(' . $row["id_platillo"] . ', this);">
+                                                            <option value="2"> Bebidas </option>
+                                                            <option value="1"> Extras </option>
+                                                            <option value="3"> Sandwiches </option>
+                                                            <option value="4"> Desayunos </option>
+                                                        </select>
+
+                                                    </td>';
+                                                }
+                                                if ($row['categoria_platillo'] == 3){
+                                                    echo 
+                                                    '<td> 
+                                                    
+                                                        <select class="form-control" id="categoria_platillo" name="categoria_platillo" onchange="categoria(' . $row["id_platillo"] . ', this);">
+                                                            <option value="3"> Sandwiches </option>
+                                                            <option value="1"> Extras </option>
+                                                            <option value="2"> Bebidas </option>
+                                                            <option value="4"> Desayunos </option>
+                                                        </select>
+
+                                                    </td>';
+                                                }
+                                                if ($row['categoria_platillo'] == 4){
+                                                    echo 
+                                                    '<td> 
+                                                    
+                                                        <select class="form-control" id="categoria_platillo" name="categoria_platillo" onchange="categoria(' . $row["id_platillo"] . ', this);">
+                                                            <option value="4"> Desayunos </option>    
+                                                            <option value="3"> Sandwiches </option>
+                                                            <option value="1"> Extras </option>
+                                                            <option value="2"> Bebidas </option>
+                                                        </select>
+
+                                                    </td>';
+                                                }
+
+                                                ///////////////////////////////////////////////////////////////////////////////////////////////
+
+                                                if ($row['mostrar_platillo'] == 0){
+                                                    echo '<td>';
+                                                    echo '<div class="text-center"><div class="btn-group">';
+                                                    echo    '<button type="submit" id="btnON" class="btn btn-outline-secondary" onclick="mostrar(' . $row["id_platillo"] . ');"> MOSTRAR </button>';
+                                                    echo    '<button type="submit" id="btnOFF" class="btn outline-danger" disabled> OCULTAR </button>';
+                                                    echo '</div></div>';
+                                                    echo '</td>';
+                                                }
+
+                                                if ($row['mostrar_platillo'] == 1){
+                                                    echo '<td>';
+                                                    echo '<div class="text-center"><div class="btn-group">';
+                                                    echo    '<button type="submit" id="btnON" class="btn btn-outline-primary" disabled> MOSTRAR </button>';
+                                                    echo    '<button type="submit" id="btnOFF" class="btn outline-danger" onclick="ocultar(' . $row["id_platillo"] . ');"> OCULTAR </button>';
+                                                    echo '</div></div>';
+                                                    echo '</td>';
+                                                }
+
+                                            echo '</tr>';
+                                        }
+                                    ?>
 								</tbody>
 							</table>
 						</div>
@@ -345,9 +437,66 @@
     <script src="./js/material.min.js"></script>
     <script src="./js/ripples.min.js"></script>
     <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="./js/main.js"></script>
+    
+    <!-- <script src="./js/main.js"></script> -->
+    <script>
+        function mostrar(id_platillo){
+            console.log("mostrar");
+            console.log(id_platillo);
 
-    <!-- jQuery, Popper.js, Bootstrap JS -->
+            $.ajax ({
+                method: 'POST',
+                url: './php/mostrar.php',
+                data: {
+                    id_platillo: id_platillo
+                },
+
+                success: function(response){
+                    location.reload();
+                }
+            })
+        }
+
+        function ocultar(id_platillo){
+            console.log("ocultar");
+            console.log(id_platillo);
+
+            $.ajax ({
+                method: 'POST',
+                url: './php/ocultar.php',
+                data: {
+                    id_platillo: id_platillo
+                },
+
+                success: function(response){
+                    location.reload();
+                }
+            })
+        }
+
+        function categoria(id_platillo, categoria){
+            console.log("categoria");
+
+            var categoria = categoria.value;
+
+            console.log(id_platillo);
+            console.log(categoria);
+
+            $.ajax ({
+                method: 'POST',
+                url: './php/categoria.php',
+                data: {
+                    id_platillo: id_platillo,
+                    categoria_platillo: categoria
+                },
+
+                success: function(response){
+                    location.reload();
+                }
+            })
+        }
+        
+    </script>
     
     <script src="assets/popper/popper.min.js"></script>
     

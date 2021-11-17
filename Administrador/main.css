@@ -1,15 +1,22 @@
+
 body{
-    background-color:#dee2e6;
+    background-color:#edf3f8;
   
 }
  table.dataTable thead {
-    background: #007bff;
+    background: #0e8174bd;
     color:white;
 }
 
 .caja{
   /* border: 1px solid; */
   padding: 5px;
-  box-shadow: 10px 10px 50px 1px #7c7c81;
+  box-shadow: 10px 10px 50px 1px #696975d0;
   border-radius: 10px;
+  width: 100%;
+}
+.textos h1{
+	
+	font-size: 80px;
+	animation: moverDerecha 1s ease-in;
 }
