@@ -188,7 +188,7 @@
 			<!-- SideBar Menu -->
 			<ul class="list-unstyled full-box dashboard-sideBar-Menu"  >
 				<li>
-					<a href="./../Empleados/admin.php">
+					<a href="./admin.php">
 						<i class="zmdi zmdi-apps"></i> Scan QR
 					</a>
 				</li>
@@ -211,7 +211,11 @@
 					<a href="./menu.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-menu"></i> Menu 
 					</a>
-					
+				</li>
+				<li>
+					<a href="./menu_rotativo/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo
+					</a>
 				</li>
 				<li>
 					<a href="./../Clientes/index.php" class="btn-sideBar-SubMenu">

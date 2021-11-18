@@ -27,7 +27,7 @@
         //header('Content-Type: application/json; charset=utf-8');
 
         //Include Configuration File
-        include('../config.php');
+        include('../../config.php');
 
         $login_button = '';
 
@@ -72,89 +72,85 @@
 
         //Ancla para iniciar sesión
         if (!isset($_SESSION['access_token'])) {
-            header("Location: ../index.php");
+            header("Location: ../../index.php");
         }
 
-        else {
-            // Varaibles de registro
-            $correo = $_SESSION['user_email_address'];
-            $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
-
-            // Conexion
-            require('./../datos_conexion.php');
-
-            $conexion = mysqli_connect($db_host, $db_usuario, $db_contra);
-
-            if (mysqli_connect_errno()) {
-                echo "Fallo al conectar con la BBDD";
-                exit();
-            }
-
-            mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
-            mysqli_set_charset($conexion, "utf8");
-
-            $consulta = "SELECT * FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
-            $resultados = mysqli_query($conexion, $consulta);
-
-            if (mysqli_num_rows($resultados) == 1){
-                $seleccion = mysqli_fetch_array($resultados);
-                $id_empleado = $seleccion['id_empleado'];
-                $id_cliente = 0;
-
-                $_SESSION['id'] = $id_empleado;
-                $status = $seleccion['status'];
-
-                $estudiante = false;
-            }
-
-            else {
-                // Validacion de cliente
-                $dominio = explode("@", $correo);
-                if ($dominio[1] == "uabc.edu.mx") {
-                    $id_empleado = 0;
-
-                    $estudiante = true;
-                    $puntos = 0;
-
-                    $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
-                    $resultados = mysqli_query($conexion, $consulta);
-
-                    if (mysqli_num_rows($resultados) == 1){
-                        $seleccion = mysqli_fetch_array($resultados);
-                        $id_cliente = $seleccion['id_cliente'];
-
-                        $_SESSION['id'] = $id_cliente;
-                    }
-
-                    else {
-                        echo "La consulta no encontro al cliente";
-
-                        $consulta = "INSERT INTO clientes (nombre_cliente, correo_cliente, puntos) VALUE ('$nombre', '$correo', '$puntos')";
-                        $resultados = mysqli_query($conexion, $consulta);
-
-                        $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
-                        $resultados = mysqli_query($conexion, $consulta);
-                        echo "Consulta: " . $consulta;
-
-                        $seleccion = mysqli_fetch_array($resultados);
-                        $id_cliente = $seleccion['id_cliente'];
-
-                        $_SESSION['id'] = $id_cliente;
-                        $_SESSION['puntos'] = $puntos;
-                    }
-                }
-
-                else {
-                    header ("Location: 404.html");
-                }
-            }
-        }
+		else {
+			// Varaibles de registro
+			$correo = $_SESSION['user_email_address'];
+			$nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
+	
+			// Conexion
+			require('./../../datos_conexion.php');
+	
+			$conexion = mysqli_connect($db_host, $db_usuario, $db_contra);
+	
+			if (mysqli_connect_errno()) {
+				echo "Fallo al conectar con la BBDD";
+				exit();
+			}
+	
+			mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
+			mysqli_set_charset($conexion, "utf8");
+	
+			$consulta = "SELECT * FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
+			$resultados = mysqli_query($conexion, $consulta);
+	
+			if (mysqli_num_rows($resultados) == 1){
+				$seleccion = mysqli_fetch_array($resultados);
+				$id_empleado = $seleccion['id_empleado'];
+				$id_cliente = 0;
+	
+				$_SESSION['id'] = $id_empleado;
+				$status = $seleccion['status'];
+	
+				$estudiante = false;
+			}
+	
+			else {
+				// Validacion de cliente
+				$dominio = explode("@", $correo);
+				if ($dominio[1] == "uabc.edu.mx") {
+					$id_empleado = 0;
+	
+					$estudiante = true;
+					$puntos = 0;
+	
+					$consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
+					$resultados = mysqli_query($conexion, $consulta);
+	
+					if (mysqli_num_rows($resultados) == 1){
+						$seleccion = mysqli_fetch_array($resultados);
+						$id_cliente = $seleccion['id_cliente'];
+	
+						$_SESSION['id'] = $id_cliente;
+					}
+	
+					else {
+						echo "La consulta no encontro al cliente";
+	
+						$consulta = "INSERT INTO clientes (nombre_cliente, correo_cliente, puntos) VALUE ('$nombre', '$correo', '$puntos')";
+						$resultados = mysqli_query($conexion, $consulta);
+	
+						$consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
+						$resultados = mysqli_query($conexion, $consulta);
+						echo "Consulta: " . $consulta;
+	
+						$seleccion = mysqli_fetch_array($resultados);
+						$id_cliente = $seleccion['id_cliente'];
+	
+						$_SESSION['id'] = $id_cliente;
+						$_SESSION['puntos'] = $puntos;
+					}
+				}
+	
+				else {
+					header ("Location: 404.html");
+				}
+			}
+		}
 
         $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
-
-        if ($status != 1) {
-            header ("Location: ./../Empleados/index.php");
-        }
 
         // echo '<div class="card-header">Welcome User</div><div class="card-body">';
         // echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
@@ -192,27 +188,32 @@
 			<!-- SideBar Menu -->
 			<ul class="list-unstyled full-box dashboard-sideBar-Menu"  >
 				<li>
-					<a href="./../Empleados/admin.php">
+					<a href="./../admin.php">
 						<i class="zmdi zmdi-apps"></i> Scan QR
 					</a>
 				</li>
 				<li>
-					<a href="index.php" >
-						<i class="zmdi zmdi-accounts"></i> Empleados 
-					</a>
+					<?php
+						if($status == 1){
+							echo
+							'<a href="./../../Administrador/index.php" >
+								<i class="zmdi zmdi-accounts"></i> Empleados 
+							</a>';
+						}
+					?>
 				</li>
 				<li>
-					<a href="./../Empleados/index.php" class="btn-sideBar-SubMenu">
+					<a href="./../index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-cutlery"></i> Platillos
 					</a>
 				</li>
 				<li>
-					<a href="./../Empleados/menu.php" class="btn-sideBar-SubMenu">
+					<a href="./../menu.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-menu"></i> Menu 
 					</a>
 				</li>
 				<li>
-					<a href="./../Empleados/menu_rotativo/index.php" class="btn-sideBar-SubMenu">
+					<a href="./index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo
 					</a>
 				</li>
@@ -220,7 +221,6 @@
 					<a href="./../Clientes/index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Ver Menu
 					</a>
-					
 				</li>
 			</ul>
 		</div>
@@ -241,12 +241,14 @@
 				</li>
 			</ul>
 		</nav>
+		
 		<!-- Content page -->
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
-					<button id="btnNuevo" type="button" class="btn " data-toggle="modal" ><i
-							class="material-icons" >library_add</i></button>
+					<h1> DESAYUNO </h1>
+					<button id="add_button" type="button" class="btn " data-toggle="modal" data-target="#userModal"><i
+							class="material-icons">library_add</i></button>
 				</div>
 			</div>
 		</div>
@@ -255,19 +257,56 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="table-responsive">
-							<table id="tablaUsuarios" class="table table-striped table-bordered table-condensed"
+							<table id="user_data" class="table table-striped table-bordered table-condensed"
 								style="width:100%">
 								<thead class="text-center">
 									<tr>
-										<th>id_empleado</th>
-                                        <th>nombre_empleado</th>
-                                        <th>correo_empleado</th>
-                                        <th>telefono_empleado</th>
-                                        <th>Acciones</th>
+										<th width="10%"> Foto </th>
+										<th width="35%"> Nombre </th>
+										<th width="35%"> Descripcion </th>
+										<th width="10%"> Tipo </th>
+										<th width="10%"> Acciones </th>
 									</tr>
 								</thead>
-								<tbody>
-								</tbody>
+								<!-- <tbody>
+								</tbody> -->
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br><br><br>
+
+		<!-- Content page -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1> COMIDA </h1>
+					<button id="add_button" type="button" class="btn " data-toggle="modal" data-target="#userModal"><i
+							class="material-icons">library_add</i></button>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="container caja">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="table-responsive">
+							<table id="user_data" class="table table-striped table-bordered table-condensed"
+								style="width:100%">
+								<thead class="text-center">
+									<tr>
+										<th width="10%"> Foto </th>
+										<th width="35%"> Nombre </th>
+										<th width="35%"> Descripcion </th>
+										<th width="10%"> Tipo </th>
+										<th width="10%"> Acciones </th>
+									</tr>
+								</thead>
+								<!-- <tbody>
+								</tbody> -->
 							</table>
 						</div>
 					</div>
@@ -276,52 +315,69 @@
 		</div>
 			
 	</section>
+
 	<!--Modal para CRUD-->
-	<div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-	aria-hidden="true"  >
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-						aria-hidden="true">&times;</span>
-				</button>
+	<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form method="post" id="user_form" enctype="multipart/form-data">
+					<div class="modal-body"style="background-color: #b2b9b92a;">
+						<div class="row">
+							<div class="col-lg-12"> 
+								<div class="form-group">
+									<label for="" class="col-form-label">Nombre: </label>
+									<input type="text" class="form-control" name="first_name" id="first_name" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12"> 
+								<div class="form-group">
+								<label for="" class="col-form-label">Descripcion: </label>
+									<input type="text" class="form-control" name="last_name" id="last_name">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="" class="col-form-label">Tipo: </label>
+									<select class="form-control" id="tipo" name="tipo">
+										<option value="0"> Plato fuerte </option>
+										<option value="1"> Guarnicion </option>
+										<option value="2"> Entrada </option>
+										<option value="3"> Bebida del dia </option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="">
+									<label for="" class="col-form-label">Imagen: </label>
+									<input type="file" class="" name="user_image" id="user_image" accept="image/x-png, image/gif, image/jpeg">
+									<span id="user_uploaded_image"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="user_id" id="user_id" />
+						<input type="hidden" name="operation" id="operation" />
+						<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+						<button type="submit" name="action" id="action" class="btn btn-dark" value="Add">Guardar</button>
+					</div>
+				</form>
 			</div>
-			<form id="formUsuarios">
-				<div class="modal-body"style="background-color: #b2b9b92a;">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Nombre empleado: </label>
-                                <input type="text" class="form-control" id="nombre_empleado" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Correo empleado: </label>
-                                <input type="text" class="form-control" id="correo_empleado" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Telefono Empleado: </label>
-                                <input type="text" class="form-control" id="telefono_empleado">
-                            </div>
-                        </div>
-                    </div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-					<button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
-				</div>
-			</form>
 		</div>
 	</div>
-</div>
 
-</div>
 	<!-- Dialog help -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
         <div class="modal-dialog" role="document">

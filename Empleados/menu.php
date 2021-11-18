@@ -152,10 +152,6 @@
 
         $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
 
-        if ($status != 1) {
-            header ("Location: ./../Empleados/index.php");
-        }
-
         // echo '<div class="card-header">Welcome User</div><div class="card-body">';
         // echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
         // echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
@@ -197,9 +193,14 @@
 					</a>
 				</li>
 				<li>
-					<a href="./../Administrador/index.php" >
-						<i class="zmdi zmdi-accounts"></i> Empleados 
-					</a>
+                    <?php
+						if($status == 1){
+							echo
+							'<a href="./../Administrador/index.php" >
+								<i class="zmdi zmdi-accounts"></i> Empleados 
+							</a>';
+						}
+					?>
 				</li>
 				<li>
 					<a href="./index.php" class="btn-sideBar-SubMenu">
@@ -211,6 +212,11 @@
 						<i class="zmdi zmdi-menu"></i> Menu 
 					</a>
 					
+				</li>
+                <li>
+					<a href="./menu_rotativo/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo
+					</a>
 				</li>
 				<li>
 					<a href="./../Clientes/index.php" class="btn-sideBar-SubMenu">
@@ -237,6 +243,7 @@
 				</li>
 			</ul>
 		</nav>
+        
 		<!-- Content page -->
 		<div class="container-fluid">
 			<div class="container caja">
@@ -364,50 +371,6 @@
 		</div>
 			
 	</section>
-	<!--Modal para CRUD-->
-	<div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-	aria-hidden="true"  >
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-						aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form id="formUsuarios">
-				<div class="modal-body"style="background-color: #b2b9b92a;">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Nombre empleado: </label>
-                                <input type="text" class="form-control" id="nombre_empleado" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Correo empleado: </label>
-                                <input type="text" class="form-control" id="correo_empleado" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Telefono Empleado: </label>
-                                <input type="text" class="form-control" id="telefono_empleado">
-                            </div>
-                        </div>
-                    </div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-					<button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 </div>
 	<!-- Dialog help -->
@@ -440,6 +403,25 @@
     
     <!-- <script src="./js/main.js"></script> -->
     <script>
+        $(document).ready(function(){
+            $('.btn-exit-system').on('click', function(){
+                swal({
+                    title: '¿Está seguro?',
+                    text: "Su sesion actual sera terminada",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#03A9F4',
+                    cancelButtonColor: '#F44336',
+                    confirmButtonText: '<i class="zmdi zmdi-run"></i> Cerrar Sesion',
+                    cancelButtonText: '<i class="zmdi zmdi-close-circle"></i> Cancelar'
+                })
+                
+                .then(function () {
+                    window.location.href="./../logout.php";
+                });
+            });
+        });
+
         function mostrar(id_platillo){
             console.log("mostrar");
             console.log(id_platillo);
