@@ -22,29 +22,29 @@ git clone -b empleado https://github.com/Erick1618/Cafeteria-UABC.git
 ```
 
 _Ya descargado el repositorio, crearemos un VirtualHost en Wampserver_
-!![wampserver1](./img/readme/1.jpg)
+!![wampserver1](./img/readme/1.JPG)
 
 _Accederemos al localhost y en la seccion de tools seleccionaremos "Add a Virtual Host"_
-!![wampserver2](./img/readme/2.jpg)
+!![wampserver2](./img/readme/2.JPG)
 
 _Una vez dentro, ingresaremos en el primer input "cafeteria-prueba.com"_
 _En el segundo input la direccion de la carpeta en la que se encuentra el repositorio_
 _Y por ultimo solo daremos click en "Start the creation of the VirtualHost"_
-!![wampserver3](./img/readme/3.jpg)
+!![wampserver3](./img/readme/3.JPG)
 
 _Para poder accerder a el virtual host, necesitamos reiniciar los DNS_
 _Para ello, damos secundario en el simbolo de WampServer, seccion Tools y "Restart DNS"_
-!![wampserver4](./img/readme/4.jpg)
+!![wampserver4](./img/readme/4.JPG)
 
 _Ahora necesitamos la base de datos_
 _De nuevo en LocalHost, ahora necesitamos acceder a phpMyAdmin_
-!![DataBase1](./img/readme/5.jpg)
+!![DataBase1](./img/readme/5.JPG)
 
 _Iniciamos sesion con root en MySql_
-!![DataBase2](./img/readme/6.jpg)
+!![DataBase2](./img/readme/6.JPG)
 
 _Una vez adentro del PhpMyAdmin, accedemos a SQL_
-!![DataBase3](./img/readme/7.jpg)
+!![DataBase3](./img/readme/7.JPG)
 
 _Ingresamos la siguiente sentencia SQL_
 
