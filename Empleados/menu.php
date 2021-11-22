@@ -214,8 +214,13 @@
 					
 				</li>
                 <li>
-					<a href="./menu_rotativo/index.php" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo
+					<a href="./menu_rotativo_desayuno/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Desayuno)
+					</a>
+				</li>
+                <li>
+					<a href="./menu_rotativo_comida/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Comida)
 					</a>
 				</li>
 				<li>
@@ -237,7 +242,7 @@
 					<a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
 				</li>
 				<li>
-					<a href="#!" class="btn-modal-help">
+					<a href="#!" class="btn-modal-help" data-toggle="modal" data-target="#Dialog-Help">
 						<i class="zmdi zmdi-help-outline"></i>
 					</a>
 				</li>
@@ -383,7 +388,11 @@
 			    </div>
 			    <div class="modal-body">
 				    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+                        Seccion de administracion del menu
+                        <br>
+                        Los platillos creados, deben ser asignados a un categoria, ademas de decidir si se muestran o no en el menu.
+                        <br>
+                        Platillos sin categoria, no se mostraran en el menu.
 				    </p>
 			    </div>
 				<div class="modal-footer">
@@ -400,8 +409,15 @@
     <script src="./js/material.min.js"></script>
     <script src="./js/ripples.min.js"></script>
     <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="./js/main.js"></script>
     
-    <!-- <script src="./js/main.js"></script> -->
+    <script src="assets/popper/popper.min.js"></script>
+    
+
+    <!-- datatables JS -->
+    <script type="text/javascript" src="./assets/datatables/datatables.min.js"></script>
+
+    <!-- <script type="text/javascript" src="main.js"></script> -->
     <script>
         $(document).ready(function(){
             $('.btn-exit-system').on('click', function(){
@@ -479,14 +495,6 @@
         }
         
     </script>
-    
-    <script src="assets/popper/popper.min.js"></script>
-    
-
-    <!-- datatables JS -->
-    <script type="text/javascript" src="./assets/datatables/datatables.min.js"></script>
-
-    <script type="text/javascript" src="main.js"></script>
 
 	<script>
 		$.material.init();

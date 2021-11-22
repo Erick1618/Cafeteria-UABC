@@ -207,8 +207,13 @@
 					</a>
 				</li>
 				<li>
-					<a href="./menu_rotativo/index.php" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo
+					<a href="./menu_rotativo_desayuno/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Desayuno)
+					</a>
+				</li>
+				<li>
+					<a href="./menu_rotativo_comida/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Comida)
 					</a>
 				</li>
 				<li>
@@ -274,7 +279,9 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+						SECCION DE USO MOVIL
+						<br>
+						En esta seccion se escaneara el codigo QR del cliente, asi, podra mejorar su sistema de puntaje.
 					</p>
 				</div>
 				<div class="modal-footer">

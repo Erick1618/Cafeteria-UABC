@@ -212,8 +212,13 @@
 					</a>
 				</li>
 				<li>
-					<a href="./../Empleados/menu_rotativo/index.php" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo
+					<a href="./../Empleados/menu_rotativo_desayuno/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Desayuno)
+					</a>
+				</li>
+				<li>
+					<a href="./../Empleados/menu_rotativo_comida/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Comida)
 					</a>
 				</li>
 				<li>
@@ -332,7 +337,13 @@
 			    </div>
 			    <div class="modal-body">
 				    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+                        Seccion de administracion de empleados. <br>
+						EXCLUSIVO DEL ADMINISTRADOR. <br>
+						<br>
+						En esta seccion se crearan los empleados del sistema, el correo debe ser ingresado CORRECTAMENTE,
+						de lo contrario, el empleado no sera capaz de acceder al sistema.
+						<br>
+						No es posible crear administradores nuevos desde este sistema.
 				    </p>
 			    </div>
 				<div class="modal-footer">

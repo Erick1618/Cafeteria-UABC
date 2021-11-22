@@ -22,7 +22,7 @@ $(document).ready(function(){
 		  	confirmButtonText: '<i class="zmdi zmdi-run"></i> Cerrar Sesion',
 		  	cancelButtonText: '<i class="zmdi zmdi-close-circle"></i> Cancelar'
 		}).then(function () {
-			window.location.href="./../logout.php";
+			window.location.href="./../../logout.php";
 		});
 	});
 	
