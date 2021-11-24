@@ -46,7 +46,7 @@
 
         // Listar
         case 4:    
-            $consulta = "SELECT * FROM empleados";
+            $consulta = "SELECT * FROM empleados WHERE status = 2";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
