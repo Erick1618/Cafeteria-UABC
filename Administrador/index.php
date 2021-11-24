@@ -72,10 +72,89 @@
 
         //Ancla para iniciar sesión
         if (!isset($_SESSION['access_token'])) {
-            header("Location: ../index.php");
+            header("Location: http://cafeteria-prueba.com/index.php");
+        }
+
+        else {
+            // Varaibles de registro
+            $correo = $_SESSION['user_email_address'];
+            $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
+
+            // Conexion
+            require('./../datos_conexion.php');
+
+            $conexion = mysqli_connect($db_host, $db_usuario, $db_contra);
+
+            if (mysqli_connect_errno()) {
+                echo "Fallo al conectar con la BBDD";
+                exit();
+            }
+
+            mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
+            mysqli_set_charset($conexion, "utf8");
+
+            $consulta = "SELECT * FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
+            $resultados = mysqli_query($conexion, $consulta);
+
+            if (mysqli_num_rows($resultados) == 1){
+                $seleccion = mysqli_fetch_array($resultados);
+                $id_empleado = $seleccion['id_empleado'];
+                $id_cliente = 0;
+
+                $_SESSION['id'] = $id_empleado;
+                $status = $seleccion['status'];
+
+                $estudiante = false;
+            }
+
+            else {
+                // Validacion de cliente
+                $dominio = explode("@", $correo);
+                if ($dominio[1] == "uabc.edu.mx") {
+                    $id_empleado = 0;
+
+                    $estudiante = true;
+                    $puntos = 0;
+
+                    $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
+                    $resultados = mysqli_query($conexion, $consulta);
+
+                    if (mysqli_num_rows($resultados) == 1){
+                        $seleccion = mysqli_fetch_array($resultados);
+                        $id_cliente = $seleccion['id_cliente'];
+
+                        $_SESSION['id'] = $id_cliente;
+                    }
+
+                    else {
+                        echo "La consulta no encontro al cliente";
+
+                        $consulta = "INSERT INTO clientes (nombre_cliente, correo_cliente, puntos) VALUE ('$nombre', '$correo', '$puntos')";
+                        $resultados = mysqli_query($conexion, $consulta);
+
+                        $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
+                        $resultados = mysqli_query($conexion, $consulta);
+                        echo "Consulta: " . $consulta;
+
+                        $seleccion = mysqli_fetch_array($resultados);
+                        $id_cliente = $seleccion['id_cliente'];
+
+                        $_SESSION['id'] = $id_cliente;
+                        $_SESSION['puntos'] = $puntos;
+                    }
+                }
+
+                else {
+                    header ("Location: 404.html");
+                }
+            }
         }
 
         $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
+
+        if ($status != 1) {
+            header ("Location: ./../Empleados/index.php");
+        }
 
         // echo '<div class="card-header">Welcome User</div><div class="card-body">';
         // echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
@@ -128,10 +207,19 @@
 					</a>
 				</li>
 				<li>
-					<a href="" class="btn-sideBar-SubMenu">
+					<a href="./../Empleados/menu.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-menu"></i> Menu 
 					</a>
-					
+				</li>
+				<li>
+					<a href="./../Empleados/menu_rotativo_desayuno/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Desayuno)
+					</a>
+				</li>
+				<li>
+					<a href="./../Empleados/menu_rotativo_comida/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Comida)
+					</a>
 				</li>
 				<li>
 					<a href="./../Clientes/index.php" class="btn-sideBar-SubMenu">
@@ -249,7 +337,13 @@
 			    </div>
 			    <div class="modal-body">
 				    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+                        Seccion de administracion de empleados. <br>
+						EXCLUSIVO DEL ADMINISTRADOR. <br>
+						<br>
+						En esta seccion se crearan los empleados del sistema, el correo debe ser ingresado CORRECTAMENTE,
+						de lo contrario, el empleado no sera capaz de acceder al sistema.
+						<br>
+						No es posible crear administradores nuevos desde este sistema.
 				    </p>
 			    </div>
 				<div class="modal-footer">

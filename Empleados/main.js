@@ -1,104 +1,110 @@
-$(document).ready(function () {
-    var id_empleado, opcion;
-    opcion = 4;
+$(document).ready(function(){
+	$('#add_button').click(function(){
+		$('#user_form')[0].reset();
+		$('.modal-title').text("Nuevo platillo");
+		$('#action').val("Add");
+		$('#operation').val("Add");
+		$('#user_uploaded_image').html('');
+	});
+	
+	var dataTable = $('#user_data').DataTable({
+		"processing":true,
+		"serverSide":true,
+		"order":[],
+		"ajax":{
+			url:"fetch.php",
+			type:"POST"
+		},
+		"columnDefs":[
+			{
+				"targets":[0, 4],
+				"orderable":false,
+			},
+		],
 
-    tablaUsuarios = $('#tablaUsuarios').DataTable({
-        "ajax": {
-            "url": "bd/crud.php",
-            "method": 'POST', //usamos el metodo POST
-            "data": { opcion: opcion }, //enviamos opcion 4 para que haga un SELECT
-            "dataSrc": ""
-        },
+	});
 
-        "columns": [
-            { "data": "id_empleado" },
-            { "data": "nombre_empleado" },
-            { "data": "correo_empleado" },
-            { "data": "telefono_empleado" },
-            { "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>" }
-        ]
-    });
+	$(document).on('submit', '#user_form', function(event){
+		event.preventDefault();
+		var firstName = $('#first_name').val();
+		var precio = $('#precio').val();
+		var extension = $('#user_image').val().split('.').pop().toLowerCase();
+		if(extension != '')
+		{
+			if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
+			{
+				alert("Invalid Image File");
+				$('#user_image').val('');
+				return false;
+			}
+		}	
+		if(firstName != '' && precio != '')
+		{
+			$.ajax({
+				url:"insert.php",
+				method:'POST',
+				data:new FormData(this),
+				contentType:false,
+				processData:false,
+				success:function(data)
+				{
+					alert(data);
+					$('#user_form')[0].reset();
+					$('#userModal').modal('hide');
+					dataTable.ajax.reload();
+				}
+			});
+		}
+		else
+		{
+			alert("Precio y Nombre obligatorios");
+		}
+	});
+	
+	$(document).on('click', '.update', function(){
+		var user_id = $(this).attr("id");
 
-    var fila; //captura la fila, para editar o eliminar
-
-    //submit para el Alta y Actualización
-    $('#formUsuarios').submit(function (e) {
-        e.preventDefault(); //evita el comportambiento normal del submit, es decir, recarga total de la página
-
-        let nombre_empleado = $.trim($('#nombre_empleado').val());
-        let correo_empleado = $.trim($('#correo_empleado').val());
-        let telefono_empleado = $.trim($('#telefono_empleado').val());
-        console.log(nombre_empleado);
-        console.log(correo_empleado);
-        console.log(telefono_empleado);
-
-        $.ajax({
-            url: "bd/crud.php",
-            type: "POST",
-            datatype: "json",
-            data: { id_empleado: id_empleado, nombre_empleado: nombre_empleado, correo_empleado: correo_empleado, telefono_empleado: telefono_empleado, opcion: opcion },
-
-            success: function (data) {
-                tablaUsuarios.ajax.reload(null, false);
-            }
-        });
-
-        $('#modalCRUD').modal('hide');
-    });
-
-    //para limpiar los campos antes de dar de Alta una Persona
-    $("#btnNuevo").click(function () {
-        opcion = 1; //alta           
-        id_empleado = null;
-
-        $("#formUsuarios").trigger("reset");
-        $(".modal-header").css("background-color", "#17a2b8");
-        $(".modal-header").css("color", "white");
-        $(".modal-title").text("Alta de Usuario");
-        $('#modalCRUD').modal('show');
-    });
-
-    //Editar        
-    $(document).on("click", ".btnEditar", function () {
-        opcion = 2;//editar
-
-        let fila = $(this).closest("tr");
-
-        id_empleado = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
-        let nombre_empleado = fila.find('td:eq(1)').text();
-        let correo_empleado = fila.find('td:eq(2)').text();
-        let telefono_empleado = fila.find('td:eq(3)').text();
-
-        $("#nombre_empleado").val(nombre_empleado);
-        $("#correo_empleado").val(correo_empleado);
-        $("#telefono_empleado").val(telefono_empleado);
-
-        $(".modal-header").css("background-color", "#007bff");
-        $(".modal-header").css("color", "white");
-        $(".modal-title").text("Editar Usuario");
-        $('#modalCRUD').modal('show');
-    });
-
-    //Borrar
-    $(document).on("click", ".btnBorrar", function () {
-        let fila = $(this);
-
-        id_empleado = parseInt($(this).closest('tr').find('td:eq(0)').text());
-        nombre_empleado = ($(this).closest('tr').find('td:eq(1)').text());
-        opcion = 3; //eliminar      
-
-        var respuesta = confirm("¿Está seguro de borrar el registro de " + nombre_empleado + "?");
-        if (respuesta) {
-            $.ajax({
-                url: "bd/crud.php",
-                type: "POST",
-                datatype: "json",
-                data: { opcion: opcion, id_empleado: id_empleado },
-                success: function () {
-                    tablaUsuarios.row(fila.parents('tr')).remove().draw();
-                }
-            });
-        }
-    });
-
-});    
+		$.ajax({
+			url:"fetch_single.php",
+			method:"POST",
+			data:{user_id:user_id},
+			dataType:"json",
+			success:function(data)
+			{
+				console.log(data);
+				$('#userModal').modal('show');
+				$('#first_name').val(data.first_name);
+				$('#last_name').val(data.last_name);
+				$('#precio').val(data.precio);
+				$('.modal-title').text("Editar platillo");
+				$('#user_id').val(user_id);
+				$('#user_uploaded_image').html(data.user_image);
+				$('#action').val("Edit");
+				$('#operation').val("Edit");
+			}
+		})
+	});
+	
+	$(document).on('click', '.delete', function(){
+		var user_id = $(this).attr("id");
+		if(confirm("¿Seguro que desea eliminar este platillo?"))
+		{
+			$.ajax({
+				url:"delete.php",
+				method:"POST",
+				data:{user_id:user_id},
+				success:function(data)
+				{
+					alert(data);
+					dataTable.ajax.reload();
+				}
+			});
+		}
+		else
+		{
+			return false;	
+		}
+	});
+	
+	
+});

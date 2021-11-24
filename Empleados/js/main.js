@@ -10,20 +10,22 @@ $(document).ready(function(){
 			SubMenu.addClass('show-sideBar-SubMenu');
 		}
 	});
+
 	$('.btn-exit-system').on('click', function(){
 		swal({
 		  	title: '¿Está seguro?',
-		  	text: "Su sesion será cerrada",
+		  	text: "Su sesion actual sera terminada",
 		  	type: 'warning',
 		  	showCancelButton: true,
 		  	confirmButtonColor: '#03A9F4',
 		  	cancelButtonColor: '#F44336',
-		  	confirmButtonText: '<i class="zmdi zmdi-run"></i> Si, salir',
-		  	cancelButtonText: '<i class="zmdi zmdi-close-circle"></i> No, Cancelar'
+		  	confirmButtonText: '<i class="zmdi zmdi-run"></i> Cerrar Sesion',
+		  	cancelButtonText: '<i class="zmdi zmdi-close-circle"></i> Cancelar'
 		}).then(function () {
-			window.location.href="./../logout.php";
+			window.location.href="./../../logout.php";
 		});
 	});
+	
 	$('.btn-menu-dashboard').on('click', function(){
 		var body=$('.dashboard-contentPage');
 		var sidebar=$('.dashboard-sideBar');
@@ -35,6 +37,7 @@ $(document).ready(function(){
 			sidebar.addClass('hide-sidebar').removeClass('show-sidebar');
 		}
 	});
+
 	$('.btn-Notifications-area').on('click', function(){
 		var NotificationsArea=$('.Notifications-area');
 		if(NotificationsArea.css('opacity')=="0"){
@@ -43,6 +46,7 @@ $(document).ready(function(){
 			NotificationsArea.removeClass('show-Notification-area');
 		}
 	});
+
 	$('.btn-search').on('click', function(){
 		swal({
 		  title: 'What are you looking for?',
@@ -63,10 +67,12 @@ $(document).ready(function(){
 		  )
 		});
 	});
+
 	$('.btn-modal-help').on('click', function(){
 		$('#Dialog-Help').modal('show');
 	});
 });
+
 (function($){
     $(window).on("load",function(){
         $(".dashboard-sideBar-ct").mCustomScrollbar({

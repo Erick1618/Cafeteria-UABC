@@ -73,16 +73,85 @@
 
 		//Ancla para iniciar sesión
 		if (!isset($_SESSION['access_token'])) {
-			header("Location: ../index.php");
+			header("Location: http://cafeteria-prueba.com/index.php");
+		}
+
+		else {
+			// Varaibles de registro
+			$correo = $_SESSION['user_email_address'];
+			$nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
+
+			// Conexion
+			require('./../datos_conexion.php');
+
+			$conexion = mysqli_connect($db_host, $db_usuario, $db_contra);
+
+			if (mysqli_connect_errno()) {
+				echo "Fallo al conectar con la BBDD";
+				exit();
+			}
+
+			mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
+			mysqli_set_charset($conexion, "utf8");
+
+			$consulta = "SELECT * FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
+			$resultados = mysqli_query($conexion, $consulta);
+
+			if (mysqli_num_rows($resultados) == 1){
+				$seleccion = mysqli_fetch_array($resultados);
+				$id_empleado = $seleccion['id_empleado'];
+				$id_cliente = 0;
+
+				$_SESSION['id'] = $id_empleado;
+				$status = $seleccion['status'];
+
+				$estudiante = false;
+			}
+
+			else {
+				// Validacion de cliente
+				$dominio = explode("@", $correo);
+				if ($dominio[1] == "uabc.edu.mx") {
+					$id_empleado = 0;
+
+					$estudiante = true;
+					$puntos = 0;
+
+					$consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
+					$resultados = mysqli_query($conexion, $consulta);
+
+					if (mysqli_num_rows($resultados) == 1){
+						$seleccion = mysqli_fetch_array($resultados);
+						$id_cliente = $seleccion['id_cliente'];
+
+						$_SESSION['id'] = $id_cliente;
+					}
+
+					else {
+						echo "La consulta no encontro al cliente";
+
+						$consulta = "INSERT INTO clientes (nombre_cliente, correo_cliente, puntos) VALUE ('$nombre', '$correo', '$puntos')";
+						$resultados = mysqli_query($conexion, $consulta);
+
+						$consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
+						$resultados = mysqli_query($conexion, $consulta);
+						echo "Consulta: " . $consulta;
+
+						$seleccion = mysqli_fetch_array($resultados);
+						$id_cliente = $seleccion['id_cliente'];
+
+						$_SESSION['id'] = $id_cliente;
+						$_SESSION['puntos'] = $puntos;
+					}
+				}
+
+				else {
+					header ("Location: 404.html");
+				}
+			}
 		}
 
 		$nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
-
-		// echo '<div class="card-header">Welcome User</div><div class="card-body">';
-		// echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
-		// echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
-		// echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
-		// echo '<h3><b>ID :</b> ' . $_SESSION['id'] . '</h3>';
 
 	?>
 
@@ -118,9 +187,14 @@
 					</a>
 				</li>
 				<li>
-					<a href="./../Administrador/index.php">
-						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Empleados
-					</a>
+					<?php
+						if($status == 1){
+							echo
+							'<a href="./../Administrador/index.php" >
+								<i class="zmdi zmdi-accounts"></i> Empleados 
+							</a>';
+						}
+					?>
 				</li>
 				<li>
 					<a href="./index.php" class="btn-sideBar-SubMenu">
@@ -128,10 +202,19 @@
 					</a>
 				</li>
 				<li>
-					<a href="menu.html" class="btn-sideBar-SubMenu">
+					<a href="./menu.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-card zmdi-hc-fw"></i> Menu
 					</a>
-
+				</li>
+				<li>
+					<a href="./menu_rotativo_desayuno/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Desayuno)
+					</a>
+				</li>
+				<li>
+					<a href="./menu_rotativo_comida/index.php" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Comida)
+					</a>
 				</li>
 				<li>
 					<a href="#!" class="btn-sideBar-SubMenu">
@@ -196,7 +279,9 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+						SECCION DE USO MOVIL
+						<br>
+						En esta seccion se escaneara el codigo QR del cliente, asi, podra mejorar su sistema de puntaje.
 					</p>
 				</div>
 				<div class="modal-footer">
