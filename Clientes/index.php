@@ -106,6 +106,7 @@
                 if ($dominio[1] == "uabc.edu.mx") {
                     $id_empleado = 0;
 
+                    $status = 0;
                     $estudiante = true;
                     $puntos = 0;
 
@@ -216,6 +217,12 @@
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="./../logout.php">Cerrar Sesión</a>
                                         </li>
+                                        <?php
+                                        if ($status == 1 || $status == 2) {
+                                            echo '<li class="rd-nav-item"><a class="rd-nav-link" href="./../Empleados/index.php"> Volver a administrador </a>
+                                            </li>';
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>
@@ -279,22 +286,10 @@
                         <div class="oh-desktop">
                             <!-- Services Terri-->
                             <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><a href="categoria_desayunos.html"><img src="https://th.bing.com/th/id/R.dd075f3b7c48b874996d459e1337c8ab?rik=HH9XTVv%2fh4hYYw&pid=ImgRaw&r=0" alt="" width="370" height="278" /></a>
+                                <div class="services-terri-figure"><a href="./desayunos.php"><img src="https://th.bing.com/th/id/R.dd075f3b7c48b874996d459e1337c8ab?rik=HH9XTVv%2fh4hYYw&pid=ImgRaw&r=0" alt="" width="370" height="278" /></a>
                                 </div>
-                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-leaf"></span>
-                                    <h5 class="services-terri-title"><a href="#">DESAYUNOS</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><a href="categoria_sandwiches.html"><img src="https://th.bing.com/th/id/OIP.uO0-OLKeN-mFusDZfFerPgHaEU?pid=ImgDet&rs=1" alt="" width="370" height="278" /></a>
-                                </div>
-                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-hamburger"></span>
-                                    <h5 class="services-terri-title"><a href="#">SANDWICHES</a></h5>
+                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-leaf" onclick="location.href='./desayunos.php'"></span>
+                                    <h5 class="services-terri-title"><a href="./desayunos.php">DESAYUNOS</a></h5>
                                 </div>
                             </article>
                         </div>
@@ -303,22 +298,10 @@
                         <div class="oh-desktop">
                             <!-- Services Terri-->
                             <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><a href="categoria_burritos.html"><img src="https://th.bing.com/th/id/OIP.BOUmKr7pKB03ntsKy07FxwHaEH?pid=ImgDet&rs=1" alt="" width="370" height="278" /></a>
+                                <div class="services-terri-figure"><a href="./sandwiches.php"><img src="https://th.bing.com/th/id/OIP.uO0-OLKeN-mFusDZfFerPgHaEU?pid=ImgDet&rs=1" alt="" width="370" height="278" /></a>
                                 </div>
-                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-ice-cream"></span>
-                                    <h5 class="services-terri-title"><a href="#">BURRITOS</a></h5>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="oh-desktop">
-                            <!-- Services Terri-->
-                            <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><a href="categoria_bebidas.html"><img src="https://i2.zst.com.br/images/tipos-de-bebidas-e-variacoes-do-cafe-photo24127313-44-1f-16.jpg" alt="" width="370" height="278" /></a>
-                                </div>
-                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-coffee-cup"></span>
-                                    <h5 class="services-terri-title"><a href="#">BEBIDAS</a></h5>
+                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-hamburger" onclick="location.href='./sandwiches.php'"></span>
+                                    <h5 class="services-terri-title"><a href="./sandwiches.php">SANDWICHES</a></h5>
                                 </div>
                             </article>
                         </div>
@@ -327,74 +310,37 @@
                         <div class="oh-desktop">
                             <!-- Services Terri-->
                             <article class="services-terri wow slideInDown">
-                                <div class="services-terri-figure"><a href="categoria_extras.html"><img src="https://th.bing.com/th/id/OIP.uVJFc2B0KS5Uke_Hhd-FAwHaEV?pid=ImgDet&rs=1" alt="" width="370" height="278" /></a>
+                                <div class="services-terri-figure"><a href="burritos.php"><img src="https://th.bing.com/th/id/OIP.BOUmKr7pKB03ntsKy07FxwHaEH?pid=ImgDet&rs=1" alt="" width="370" height="278" /></a>
                                 </div>
-                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-steak"></span>
-                                    <h5 class="services-terri-title"><a href="#">EXTRAS</a></h5>
+                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-steak" onclick="location.href='./burritos.php'"></span>
+                                    <h5 class="services-terri-title"><a href="burritos.php">BURRITOS</a></h5>
                                 </div>
                             </article>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Our Shop-->
-        <section class="section section-lg bg-default">
-            <div class="container">
-                <h3 class="oh-desktop"><span class="d-inline-block wow slideInUp">Menú del día</span></h3>
-                <div class="row row-lg row-30">
-                    <div class="col-sm-6 col-lg-4 col-xl-3">
-                        <!-- Product-->
-                        <article class="product wow fadeInLeft" data-wow-delay=".15s">
-                            <h4 class="product-title">
-                                Desayuno #1</h6>
-                                <h4 class="product-title ">
-                                    Nachos Con Carne<br></h6>
-                                    <div class="product-figure"><img src="https://th.bing.com/th/id/OIP.gc1U9d1rKKW2XFANWuGFMwHaEK?pid=ImgDet&rs=1" alt="" width="161" height="162" />
-                                    </div>
-                                    <h6 class="product-title">
-                                        <br>Guarnición:
-                                    </h6>
-                                    <div class="product-price-wrap">
-                                        <h6 class="product-title">
-                                            Entrada: </h6>
-                                        <div class="product-price-wrap">
-                                            <h6 class="product-title">
-                                                Bebida: </h6>
-                                            <div class="product-price-wrap">
-                                                <div class="product-price">$70.00</div>
-                                            </div>
-                                            <div class="product-button">
-                                                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="#">PEDIR</a></div>
-                                            </div>
-                        </article>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="oh-desktop">
+                            <!-- Services Terri-->
+                            <article class="services-terri wow slideInDown">
+                                <div class="services-terri-figure"><a href="./bebidas.php"><img src="https://i2.zst.com.br/images/tipos-de-bebidas-e-variacoes-do-cafe-photo24127313-44-1f-16.jpg" alt="" width="370" height="278" /></a>
+                                </div>
+                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-coffee-cup" onclick="location.href='./bebidas.php'"></span>
+                                    <h5 class="services-terri-title"><a href="./bebidas.php">BEBIDAS</a></h5>
+                                </div>
+                            </article>
+                        </div>
                     </div>
-                    <div class="col-sm-6 col-lg-4 col-xl-3">
-                        <!-- Product-->
-                        <article class="product wow fadeInLeft" data-wow-delay=".15s">
-                            <h4 class="product-title">
-                                Comida #1</h6>
-                                <h4 class="product-title ">
-                                    Nachos Con Carne<br></h6>
-                                    <div class="product-figure"><img src="https://th.bing.com/th/id/OIP.gc1U9d1rKKW2XFANWuGFMwHaEK?pid=ImgDet&rs=1" alt="" width="161" height="162" />
-                                    </div>
-                                    <h6 class="product-title">
-                                        <br>Guarnición:
-                                    </h6>
-                                    <div class="product-price-wrap">
-                                        <h6 class="product-title">
-                                            Entrada: </h6>
-                                        <div class="product-price-wrap">
-                                            <h6 class="product-title">
-                                                Bebida: </h6>
-                                            <div class="product-price-wrap">
-                                                <div class="product-price">$70.00</div>
-                                            </div>
-                                            <div class="product-button">
-                                                <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="#">PEDIR</a></div>
-                                            </div>
-                        </article>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="oh-desktop">
+                            <!-- Services Terri-->
+                            <article class="services-terri wow slideInDown">
+                                <div class="services-terri-figure"><a href="./extras.php"><img src="https://th.bing.com/th/id/OIP.uVJFc2B0KS5Uke_Hhd-FAwHaEV?pid=ImgDet&rs=1" alt="" width="370" height="278" /></a>
+                                </div>
+                                <div class="services-terri-caption"><span class="services-terri-icon linearicons-ice-cream" onclick="location.href='./extras.php'"></span>
+                                    <h5 class="services-terri-title"><a href="./extras.php">EXTRAS</a></h5>
+                                </div>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>

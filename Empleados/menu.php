@@ -287,6 +287,7 @@
                                                             <option value="2"> Bebidas </option>
                                                             <option value="3"> Sandwiches </option>
                                                             <option value="4"> Desayunos </option>
+                                                            <option value="5"> Burritos </option>
                                                         </select>
 
                                                     </td>';
@@ -300,6 +301,7 @@
                                                             <option value="2"> Bebidas </option>
                                                             <option value="3"> Sandwiches </option>
                                                             <option value="4"> Desayunos </option>
+                                                            <option value="5"> Burritos </option>
                                                         </select>
 
                                                     </td>';
@@ -313,6 +315,7 @@
                                                             <option value="1"> Extras </option>
                                                             <option value="3"> Sandwiches </option>
                                                             <option value="4"> Desayunos </option>
+                                                            <option value="5"> Burritos </option>
                                                         </select>
 
                                                     </td>';
@@ -326,6 +329,7 @@
                                                             <option value="1"> Extras </option>
                                                             <option value="2"> Bebidas </option>
                                                             <option value="4"> Desayunos </option>
+                                                            <option value="5"> Burritos </option>
                                                         </select>
 
                                                     </td>';
@@ -335,6 +339,21 @@
                                                     '<td> 
                                                     
                                                         <select class="form-control" id="categoria_platillo" name="categoria_platillo" onchange="categoria(' . $row["id_platillo"] . ', this);">
+                                                            <option value="4"> Desayunos </option>    
+                                                            <option value="3"> Sandwiches </option>
+                                                            <option value="1"> Extras </option>
+                                                            <option value="2"> Bebidas </option>
+                                                            <option value="5"> Burritos </option>
+                                                        </select>
+
+                                                    </td>';
+                                                }
+                                                if ($row['categoria_platillo'] == 5){
+                                                    echo 
+                                                    '<td> 
+                                                    
+                                                        <select class="form-control" id="categoria_platillo" name="categoria_platillo" onchange="categoria(' . $row["id_platillo"] . ', this);">
+                                                            <option value="5"> Burritos </option>
                                                             <option value="4"> Desayunos </option>    
                                                             <option value="3"> Sandwiches </option>
                                                             <option value="1"> Extras </option>
