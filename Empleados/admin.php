@@ -217,7 +217,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#!" class="btn-sideBar-SubMenu">
+					<a href="./../Clientes/index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Ver Menu
 					</a>
 

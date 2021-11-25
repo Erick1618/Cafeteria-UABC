@@ -21,7 +21,7 @@ if(isset($_POST["user_id"]))
 	
 	if(!empty($result))
 	{
-		echo 'Data Deleted';
+		echo 'Platillo eliminado';
 	}
 }
 

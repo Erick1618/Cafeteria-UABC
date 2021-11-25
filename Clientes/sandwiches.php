@@ -198,7 +198,7 @@
                                 <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                                 <!-- RD Navbar Brand-->
                                 <div class="rd-navbar-brand">
-                                    <a class="brand" href="index.html"><img class="brand-logo-dark" src="images/logo-198x66.jfif" alt="" width="198" height="66" /></a>
+                                    <a class="brand" href="index.php"><img class="brand-logo-dark" src="images/logo-198x66.jfif" alt="" width="198" height="66" /></a>
                                 </div>
                             </div>
                             <div class="rd-navbar-right rd-navbar-nav-wrap">
@@ -212,7 +212,7 @@
                                 <div class="rd-navbar-main">
                                     <!-- RD Navbar Nav-->
                                     <ul class="rd-navbar-nav">
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="http://cafeteria-prueba.com/Clientes/index.php">Inicio</a>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="./index.php">Inicio</a>
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="about-us.html">Código QR</a>
                                         </li>
@@ -263,12 +263,22 @@
                                                 <div class="product-figure"><img src="./../../Empleados/upload/' . $row["foto_platillo"] . '" alt="" width="161" height="162" />
                                                 </div>
                                                 <div class="product-price-wrap">
-                                                    <div class="product-price">$ ' . $row["precio_platillo"] . '</div>
+                                                    <div class="product-price">$ ' . $row["precio_platillo"] . '.00</div>
                                                 </div>
-                                                <br>
-                                                <div class="product-description">
+                                                <br>';
+                                                
+                                                if ($row["descripcion_platillo"]){
+                                                    echo '<div class="product-description">
                                                     <p>' . $row["descripcion_platillo"] . '</p>
-                                                </div>
+                                                    </div>';
+                                                }
+                                                
+                                                else{
+                                                    echo '<div class="product-description">
+                                                    <p>[ SIN DESCRIPCION ]</p>
+                                                    </div>';
+                                                }
+                                                echo'
                                                 <div class="product-button-sm">
                                                     <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="#"> COMPRAR </a></div>
                                                 </div>

@@ -71,7 +71,7 @@
 
     //Ancla para iniciar sesión
     if (!isset($_SESSION['access_token'])) {
-        header("Location: http://cafeteria-prueba.com/index.php");
+        header("Location: ./../../index.php");
     } else {
         // Varaibles de registro
         $correo = $_SESSION['user_email_address'];
@@ -136,7 +136,7 @@
                     $_SESSION['puntos'] = $puntos;
                 }
             } else {
-                header("Location: 404.html");
+                header("Location: ./../../404.html");
             }
         }
     }
@@ -212,7 +212,7 @@
                                 <div class="rd-navbar-main">
                                     <!-- RD Navbar Nav-->
                                     <ul class="rd-navbar-nav">
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="http://cafeteria-prueba.com/Clientes/index.php">Inicio</a>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="./index.php">Inicio</a>
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="about-us.html">Código QR</a>
                                         </li>

@@ -33,7 +33,7 @@ $(document).ready(function(){
 		{
 			if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
 			{
-				alert("Invalid Image File");
+				alert("Tipo de imagen invalida, solo .gif, .png, .jpg y .jpeg");
 				$('#user_image').val('');
 				return false;
 			}
@@ -71,7 +71,7 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data)
 			{
-				console.log(data);
+				//console.log(data);
 				$('#userModal').modal('show');
 				$('#first_name').val(data.first_name);
 				$('#last_name').val(data.last_name);
