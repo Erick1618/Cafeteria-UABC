@@ -176,30 +176,30 @@
     } else {
         // echo '<div align="center">' . $login_button . '</div>';
         ?>
-        <div class="row justify-content-center pt-5 mt-5 m-1">
-            <div class="container">
-                <div class="row justify-content-center pt-5">
-                    <img src="./img/logo-198x66.jfif" class="logo">
-                </div>
-            </div>        
+            <div class="row justify-content-center pt-5 mt-5 m-1">
+                <div class="container">
+                    <div class="row justify-content-center pt-5">
+                        <img src="./img/logo-198x66.jfif" class="logo">
+                    </div>
+                </div>        
 
-            <div class="container">
-                <div class="row justify-content-center mt-5 m-1">
-                    <div class="col-10 formulario">
-                        <form action="">
-                            <div class="form-group text-center pt-3">
-                                <h1 class="text-light">INICIAR SESIÓN</h1>
-                            </div>
-                            <div class="form-group mx-sm-4 pb-2 boton">
-                                <?php
-                                    echo $login_button;
-                                ?>
-                            </div>
-                        </form>
+                <div class="container">
+                    <div class="row justify-content-center mt-5 m-1">
+                        <div class="col-10 formulario">
+                            <form action="">
+                                <div class="form-group text-center pt-3">
+                                    <h1 class="text-light">INICIAR SESIÓN</h1>
+                                </div>
+                                <div class="form-group mx-sm-4 pb-2 boton">
+                                    <?php
+                                        echo $login_button;
+                                    ?>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <?php
     }
     ?>
