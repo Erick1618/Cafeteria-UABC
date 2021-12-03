@@ -16,6 +16,7 @@ if(isset($_POST["user_id"]))
 		$output["first_name"] = $row["nombre_platillo"];
 		$output["last_name"] = $row["descripcion_platillo"];
 		$output["precio"] = $row["precio_platillo"];
+		$output["categoria_platillo"] = $row["categoria_platillo"];
 		if($row["foto_platillo"] != '')
 		{
 			$output['user_image'] = '<img src="upload/'.$row["foto_platillo"].'" class="img-thumbnail" width="50" height="35" /><input type="hidden" name="hidden_user_image" value="'.$row["foto_platillo"].'" />';

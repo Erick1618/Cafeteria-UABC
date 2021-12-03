@@ -27,6 +27,7 @@
 
     //Include Configuration File
     include('./../config.php');
+    include('./pedidos.php');
 
     $login_button = '';
 
@@ -233,6 +234,13 @@
         <section class="section section-lg bg-default">
             <div class="container">
                 <h3 class="oh-desktop"><span class="d-inline-block wow slideInUp"> Extras </span></h3>
+
+                <?php if($mensaje != ""){ ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo $mensaje; ?>
+                        <a href="./verPedidos.php" class="btn btn-success"> Ver pedidos </a>
+                    </div>
+                <?php } ?>
                 <br><br><br>
                 
                 <div>
@@ -279,9 +287,17 @@
                                                     </div>';
                                                 }
                                                 echo'
-                                                <div class="product-button-sm">
-                                                    <div class="button-wrap"><a class="button button-xs button-secondary button-winona" href="#"> COMPRAR </a></div>
-                                                </div>
+                                                <div class="product-button-sm">'; ?>
+                                                    <form action="" method="POST">
+                                                        <input type="hidden" name="id" value="<?php echo $row["id_platillo"]; ?>">
+                                                        <input type="hidden" name="nombre" value="<?php echo $row["nombre_platillo"]; ?>">
+                                                        <input type="hidden" name="precio" value="<?php echo $row["precio_platillo"]; ?>">
+                                                        <input type="hidden" name="cantidad" value="1">
+
+                                                        <div class="button-wrap"><button name="btnAccion" value="Agregar" type="submit" class="button button-xs button-secondary button-winona" href="#"> COMPRAR </div>
+                                                    </form>
+
+                                                <?php echo '</div>
                                         </article>
                                     </div>
                                 ';

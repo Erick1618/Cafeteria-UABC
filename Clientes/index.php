@@ -21,132 +21,132 @@
 
     <?php
 
-        //header('Content-Type: application/json; charset=utf-8');
+    //header('Content-Type: application/json; charset=utf-8');
 
-        //Include Configuration File
-        include('../config.php');
+    //Include Configuration File
+    include('../config.php');
 
-        $login_button = '';
+    $login_button = '';
 
-        if (isset($_GET["code"])) {
+    if (isset($_GET["code"])) {
 
-            $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
-            if (!isset($token['error'])) {
+        $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
+        if (!isset($token['error'])) {
 
-                $google_client->setAccessToken($token['access_token']);
+            $google_client->setAccessToken($token['access_token']);
 
-                $_SESSION['access_token'] = $token['access_token'];
+            $_SESSION['access_token'] = $token['access_token'];
 
-                $google_service = new Google_Service_Oauth2($google_client);
+            $google_service = new Google_Service_Oauth2($google_client);
 
-                $data = $google_service->userinfo->get();
+            $data = $google_service->userinfo->get();
 
-                if (!empty($data['given_name'])) {
-                    $_SESSION['user_first_name'] = $data['given_name'];
-                }
+            if (!empty($data['given_name'])) {
+                $_SESSION['user_first_name'] = $data['given_name'];
+            }
 
-                if (!empty($data['family_name'])) {
-                    $_SESSION['user_last_name'] = $data['family_name'];
-                }
+            if (!empty($data['family_name'])) {
+                $_SESSION['user_last_name'] = $data['family_name'];
+            }
 
-                if (!empty($data['email'])) {
-                    $_SESSION['user_email_address'] = $data['email'];
-                }
+            if (!empty($data['email'])) {
+                $_SESSION['user_email_address'] = $data['email'];
+            }
 
-                if (!empty($data['gender'])) {
-                    $_SESSION['user_gender'] = $data['gender'];
-                }
+            if (!empty($data['gender'])) {
+                $_SESSION['user_gender'] = $data['gender'];
+            }
 
-                if (!empty($data['picture'])) {
-                    $_SESSION['user_image'] = $data['picture'];
-                }
+            if (!empty($data['picture'])) {
+                $_SESSION['user_image'] = $data['picture'];
+            }
 
-                if (!empty($data['id'])) {
-                    $_SESSION['id'] = $_GET['id'];
-                }
+            if (!empty($data['id'])) {
+                $_SESSION['id'] = $_GET['id'];
             }
         }
+    }
 
-        //Ancla para iniciar sesión
-        if (!isset($_SESSION['access_token'])) {
-            header("Location: http://cafeteria-prueba.com/index.php");
+    //Ancla para iniciar sesión
+    if (!isset($_SESSION['access_token'])) {
+        header("Location: http://cafeteria-prueba.com/index.php");
+    } else {
+        // Varaibles de registro
+        $correo = $_SESSION['user_email_address'];
+        $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
+
+        // Conexion
+        require('./../datos_conexion.php');
+
+        $conexion = mysqli_connect($db_host, $db_usuario, $db_contra);
+
+        if (mysqli_connect_errno()) {
+            echo "Fallo al conectar con la BBDD";
+            exit();
+        }
+
+        mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
+        mysqli_set_charset($conexion, "utf8");
+
+        $consulta = "SELECT * FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
+        $resultados = mysqli_query($conexion, $consulta);
+
+        if (mysqli_num_rows($resultados) == 1) {
+            $seleccion = mysqli_fetch_array($resultados);
+            $id_empleado = $seleccion['id_empleado'];
+            $id_cliente = 0;
+
+            $_SESSION['id'] = $id_empleado;
+            $status = $seleccion['status'];
+
+            $estudiante = false;
         } else {
-            // Varaibles de registro
-            $correo = $_SESSION['user_email_address'];
-            $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
+            // Validacion de cliente
+            $dominio = explode("@", $correo);
+            if ($dominio[1] == "uabc.edu.mx") {
+                $id_empleado = 0;
 
-            // Conexion
-            require('./../datos_conexion.php');
+                $status = 0;
+                $estudiante = true;
+                $puntos = 0;
 
-            $conexion = mysqli_connect($db_host, $db_usuario, $db_contra);
+                $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
+                $resultados = mysqli_query($conexion, $consulta);
 
-            if (mysqli_connect_errno()) {
-                echo "Fallo al conectar con la BBDD";
-                exit();
-            }
+                if (mysqli_num_rows($resultados) == 1) {
+                    $seleccion = mysqli_fetch_array($resultados);
+                    $id_cliente = $seleccion['id_cliente'];
 
-            mysqli_select_db($conexion, $db_nombre) or die("No se encontro la BBDD");
-            mysqli_set_charset($conexion, "utf8");
+                    $_SESSION['id'] = $id_cliente;
+                } else {
+                    echo "La consulta no encontro al cliente";
 
-            $consulta = "SELECT * FROM EMPLEADOS WHERE CORREO_EMPLEADO = '$correo'";
-            $resultados = mysqli_query($conexion, $consulta);
-
-            if (mysqli_num_rows($resultados) == 1) {
-                $seleccion = mysqli_fetch_array($resultados);
-                $id_empleado = $seleccion['id_empleado'];
-                $id_cliente = 0;
-
-                $_SESSION['id'] = $id_empleado;
-                $status = $seleccion['status'];
-
-                $estudiante = false;
-            } else {
-                // Validacion de cliente
-                $dominio = explode("@", $correo);
-                if ($dominio[1] == "uabc.edu.mx") {
-                    $id_empleado = 0;
-
-                    $status = 0;
-                    $estudiante = true;
-                    $puntos = 0;
+                    $consulta = "INSERT INTO clientes (nombre_cliente, correo_cliente, puntos) VALUE ('$nombre', '$correo', '$puntos')";
+                    $resultados = mysqli_query($conexion, $consulta);
 
                     $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
                     $resultados = mysqli_query($conexion, $consulta);
+                    echo "Consulta: " . $consulta;
 
-                    if (mysqli_num_rows($resultados) == 1) {
-                        $seleccion = mysqli_fetch_array($resultados);
-                        $id_cliente = $seleccion['id_cliente'];
+                    $seleccion = mysqli_fetch_array($resultados);
+                    $id_cliente = $seleccion['id_cliente'];
 
-                        $_SESSION['id'] = $id_cliente;
-                    } else {
-                        echo "La consulta no encontro al cliente";
-
-                        $consulta = "INSERT INTO clientes (nombre_cliente, correo_cliente, puntos) VALUE ('$nombre', '$correo', '$puntos')";
-                        $resultados = mysqli_query($conexion, $consulta);
-
-                        $consulta = "SELECT id_cliente FROM clientes WHERE correo_cliente = '$correo'";
-                        $resultados = mysqli_query($conexion, $consulta);
-                        echo "Consulta: " . $consulta;
-
-                        $seleccion = mysqli_fetch_array($resultados);
-                        $id_cliente = $seleccion['id_cliente'];
-
-                        $_SESSION['id'] = $id_cliente;
-                        $_SESSION['puntos'] = $puntos;
-                    }
-                } else {
-                    header("Location: 404.html");
+                    $_SESSION['id'] = $id_cliente;
+                    $_SESSION['puntos'] = $puntos;
                 }
+            } else {
+                header("Location: 404.html");
             }
         }
+    }
 
-        $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
+    $nombre = $_SESSION['user_first_name'] . " " . $_SESSION['user_last_name'];
 
-        // echo '<div class="card-header">Welcome User</div><div class="card-body">';
-        // echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
-        // echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
-        // echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
-        // echo '<h3><b>ID :</b> ' . $_SESSION['id'] . '</h3>';
+    // echo '<div class="card-header">Welcome User</div><div class="card-body">';
+    // echo '<img src="' . $_SESSION["user_image"] . '" class="rounded-circle container"/>';
+    // echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
+    // echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
+    // echo '<h3><b>ID :</b> ' . $_SESSION['id'] . '</h3>';
 
     ?>
 
@@ -209,7 +209,7 @@
                                 <div class="rd-navbar-main">
                                     <!-- RD Navbar Nav-->
                                     <ul class="rd-navbar-nav">
-                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">Inicio</a>
+                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="index.php">Inicio</a>
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="#">Código QR</a>
                                         </li>
@@ -232,7 +232,7 @@
             </div>
         </header>
         <!-- Swiper-->
-        <section class="section swiper-container swiper-slider swiper-slider-2 swiper-slider-3" data-loop="true" data-autoplay="5000" data-simulate-touch="false" data-slide-effect="fade">
+        <!-- <section class="section swiper-container swiper-slider swiper-slider-2 swiper-slider-3" data-loop="true" data-autoplay="5000" data-simulate-touch="false" data-slide-effect="fade">
             <div class="swiper-wrapper text-sm-left">
                 <div class="swiper-slide context-dark" data-slide-bg="https://cheforopeza.com.mx/wp-content/uploads/2020/01/hotcakes-fruta.jpg">
                     <div class="swiper-slide-caption section-md">
@@ -240,7 +240,6 @@
                             <div class="row">
                                 <div class="col-sm-9 col-md-8 col-lg-7 col-xl-7 offset-lg-1 offset-xxl-0">
                                     <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInUp" data-caption-delay="0"> DESAYUNO DEL DIA </span></h1>
-                                    <!-- <p class="big swiper-text text-light bg-dark" data-caption-animate="fadeInLeft" data-caption-delay="300">Ven a desayunarte unos deliciosos hot cakes con un toque de rebanadas de platano y trocitos de almendras!</p> -->
                                     <a class="button button-lg button-primary button-winona button-shadow-2" href="./desayuno/index.php" data-caption-animate="fadeInUp" data-caption-delay="300"> Ver opciones para desayuno </a>
                                 </div>
                             </div>
@@ -253,7 +252,6 @@
                             <div class="row">
                                 <div class="col-sm-8 col-lg-7 offset-lg-1 offset-xxl-0">
                                     <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInDown" data-caption-delay="0"> COMIDA DEL DIA </span></h1>
-                                    <!-- <p class="big swiper-text" data-caption-animate="fadeInRight" data-caption-delay="300">La hora perfecta del dia para llenar tu estomago con una deliciosa hamburguesa acompañada de unas papas.</p> -->
                                     <div class="button-wrap oh"><a class="button button-lg button-primary button-winona button-shadow-2" href="./comida/index.php" data-caption-animate="slideInUp" data-caption-delay="0"> Ver opciones para comida </a></div>
                                 </div>
                             </div>
@@ -261,9 +259,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Swiper Pagination-->
             <div class="swiper-pagination" data-bullet-custom="true"></div>
-            <!-- Swiper Navigation-->
             <div class="swiper-button-prev">
                 <div class="preview">
                     <div class="preview__img"></div>
@@ -276,7 +272,7 @@
                     <div class="preview__img"></div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <!-- What We Offer-->
         <section class="section section-md bg-default">
             <div class="container">

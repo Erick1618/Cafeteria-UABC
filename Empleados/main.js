@@ -17,7 +17,7 @@ $(document).ready(function(){
 		},
 		"columnDefs":[
 			{
-				"targets":[0, 4],
+				"targets":[0, 5, 6],
 				"orderable":false,
 			},
 		],
@@ -38,7 +38,7 @@ $(document).ready(function(){
 				return false;
 			}
 		}	
-		if(firstName != '' && precio != '')
+		if(firstName != '' && precio != '' && categoria_platillo != 0)
 		{
 			$.ajax({
 				url:"insert.php",
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		}
 		else
 		{
-			alert("Precio y Nombre obligatorios");
+			alert("Precio, Nombre y Categoria obligatorios");
 		}
 	});
 	
@@ -76,6 +76,7 @@ $(document).ready(function(){
 				$('#first_name').val(data.first_name);
 				$('#last_name').val(data.last_name);
 				$('#precio').val(data.precio);
+				$('#categoria_platillo').val(data.categoria_platillo);
 				$('.modal-title').text("Editar platillo");
 				$('#user_id').val(user_id);
 				$('#user_uploaded_image').html(data.user_image);
@@ -104,7 +105,5 @@ $(document).ready(function(){
 		{
 			return false;	
 		}
-	});
-	
-	
+	});	
 });

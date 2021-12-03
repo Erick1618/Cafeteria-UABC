@@ -21,7 +21,7 @@ if(isset($_POST["operation"]))
 				':first_name'	=>	$_POST["first_name"],
 				':last_name'	=>	$_POST["last_name"],
 				':precio'	=>	$_POST["precio"],
-				':categoria'	=>	$categortia,
+				':categoria'	=>	$_POST["categoria_platillo"],
 				':image'		=>	$image,
 				':mostrar'		=>	$mostrar
 			)
@@ -44,7 +44,7 @@ if(isset($_POST["operation"]))
 		}
 		$statement = $connection->prepare(
 			"UPDATE platillos 
-			SET nombre_platillo = :first_name, descripcion_platillo = :last_name, precio_platillo = :precio, foto_platillo = :image  
+			SET nombre_platillo = :first_name, descripcion_platillo = :last_name, precio_platillo = :precio, categoria_platillo = :categoria_platillo, foto_platillo = :image  
 			WHERE id_platillo = :id
 			"
 		);
@@ -53,6 +53,7 @@ if(isset($_POST["operation"]))
 				':first_name'	=>	$_POST["first_name"],
 				':last_name'	=>	$_POST["last_name"],
 				':precio'	=>	$_POST["precio"],
+				':categoria_platillo'	=>	$_POST["categoria_platillo"],
 				':image'		=>	$image,
 				':id'			=>	$_POST["user_id"]
 			)
