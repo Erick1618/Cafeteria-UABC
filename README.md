@@ -43,7 +43,7 @@ _De nuevo en LocalHost, ahora necesitamos acceder a phpMyAdmin_
 !![DataBase1](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/5.JPG)
 
 _Iniciamos sesion con root en MySql_
-!![DataBase2](.https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/6.JPG)
+!![DataBase2](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/6.JPG)
 
 _Una vez adentro del PhpMyAdmin, accedemos a SQL_
 !![DataBase3](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/7.JPG)
