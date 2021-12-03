@@ -24,7 +24,7 @@ git clone -b pruebas https://github.com/Erick1618/Cafeteria-UABC.git
 ```
 
 _Ya descargado el repositorio, crearemos un VirtualHost en Wampserver_
-!![wampserver1](./img/readme/1.JPG)
+!![wampserver1](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/1.JPG)
 
 _Accederemos al localhost y en la seccion de tools seleccionaremos "Add a Virtual Host"_
 !![wampserver2](./img/readme/2.JPG)
