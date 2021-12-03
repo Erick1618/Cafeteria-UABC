@@ -244,75 +244,22 @@
 
         <?php
 
-            if ($_POST){
-                $total = 0;
-                $sid = session_id();
-
-                foreach ($_SESSION['carrito'] as $indice => $producto) {
-                    $total = $total + ($producto['CANTIDAD'] * $producto['PRECIO']);
-                }
-
-                // $sentencia = "INSERT INTO ventas (clave_transaccion, paypal_datos, fecha, total, status)
-                //               VALUES ('$sid', '', NOW(), $total, pendiente)";
-
-                // $resultado = mysqli_query($conexion, $sentencia);
-
-                // $idVenta = mysqli_insert_id($conexion);
-
-                // foreach ($_SESSION['carrito'] as $indice => $producto) {
-                //     $sentencia = "INSERT INTO detalle_venta (id_venta, id_producto, precio_unitario, cantidad)
-                //                   VALUES ($idVenta, $producto[ID], $producto[PRECIO], $producto[CANTIDAD])";
-
-                //     $resultado = mysqli_query($conexion, $sentencia);
-                // }
+            while (isset($_SESSION['carrito'][0])) {
+                unset($_SESSION['carrito'][0]);
+                $_SESSION['carrito'] = array_values($_SESSION['carrito']);
             }
-
-            //echo "<h3> Total: $" . number_format($total, 2) . "</h3>";
 
         ?>
 
         <div class="p-5 bg-light text-center">
-            <div class="container"> 
-                <h1 class="display-4"> ¡Paso Final ! </h1>
+            <div class="container">
+                <h1 class="display-4"> ¡GRACIAS POR SU COMPRA ! </h1>
                 <hr class="my-4">
-                <p class="lead"> 
-                    Estas a punto de pagar con paypal la cantida de: 
-                    <h4>$<?php echo number_format($total, 2); ?>  </h4>
+                <p class="lead">  
                 </p>
 
                 <!-- Set up a container element for the button -->
-                <div id="paypal-button-container"></div>
-
-                    <!-- Include the PayPal JavaScript SDK -->
-                    <script src="https://www.paypal.com/sdk/js?client-id=Aa42K8UAcyt5z9_Yx3TWyuqjkszdkNEkBZLtYrtSst9mqxnj9CeM0S9Ym3Uco0kDcbqV9aCVezsOP6eI&currency=MXN"></script>
-
-                    <script>
-                        // Render the PayPal button into #paypal-button-container
-                        paypal.Buttons({
-                            style: {
-                                layout: 'horizontal'
-                            },
-
-                            createOrder: function(data, actions) {
-                                return actions.order.create({
-                                    purchase_units: [{
-                                        amount: {
-                                            value: '<?php echo $total; ?>',
-                                            currency: 'MXN'
-                                        }
-                                    }]
-                                });
-                            },
-
-                            onApprove: function(data, actions) {
-                                return actions.order.capture().then(function(details) {
-                                    // Show a success message to the buyer
-                                    alert('PAGO REALIZADO!');
-                                    location.href = './pagoCompleto.php';
-                                });
-                            }
-                        }).render('#paypal-button-container');
-                    </script>
+                
             </div>
         </div>
 
