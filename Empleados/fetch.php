@@ -8,6 +8,7 @@ if(isset($_POST["search"]["value"]))
 {
 	$query .= 'WHERE nombre_platillo LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR descripcion_platillo LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR categoria_platillo LIKE "%'.$_POST["search"]["value"].'%" ';
 }
 if(isset($_POST["order"]))
 {

@@ -14,15 +14,25 @@
     switch($opcion){
         // Insertar
         case 1:
-            $status = 2;
-            $consulta = "INSERT INTO empleados (nombre_empleado, correo_empleado, telefono_empleado, status) VALUES('$nombre_empleado', '$correo_empleado', '$telefono_empleado', '$status') ";			
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute(); 
-            
-            $consulta = "SELECT * FROM empleados ORDER BY id_empleados DESC LIMIT 1";
+            $consulta = "SELECT * FROM empleados WHERE correo_empleado='$correo_empleado'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
-            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);       
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($data) == 0){
+                $status = 2;
+                $consulta = "INSERT INTO empleados (nombre_empleado, correo_empleado, telefono_empleado, status) VALUES('$nombre_empleado', '$correo_empleado', '$telefono_empleado', '$status') ";			
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute(); 
+            
+                $consulta = "SELECT * FROM empleados ORDER BY id_empleados DESC LIMIT 1";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+                $data=$resultado->fetchAll(PDO::FETCH_ASSOC);;
+            } else {
+                $mensaje = "ERROR";
+                echo $mensaje;
+            }       
             break;   
 
         // Actualizar

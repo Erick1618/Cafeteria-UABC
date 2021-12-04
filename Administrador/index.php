@@ -203,7 +203,7 @@
 				</li>
 				<li>
 					<a href="./../Empleados/index.php" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-cutlery"></i> Platillos
+						<i class="zmdi zmdi-cutlery"></i> Productos
 					</a>
 				</li>
 				<!-- <li>

@@ -1,5 +1,3 @@
-# Cafeteria-UABC
-Aplicacion web para la cafeteria de la univerisdad uabc
 # Cafeteria UABC
 
 _Aplicacion para la cafeteria de UABC Sauzal (Lado de administrador compleatado)_
@@ -27,26 +25,26 @@ _Ya descargado el repositorio, crearemos un VirtualHost en Wampserver_
 !![wampserver1](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/1.JPG)
 
 _Accederemos al localhost y en la seccion de tools seleccionaremos "Add a Virtual Host"_
-!![wampserver2](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/2.JPG)
+![wampserver2](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/2.JPG)
 
 _Una vez dentro, ingresaremos en el primer input "cafeteria-prueba.com"_
 _En el segundo input la direccion de la carpeta en la que se encuentra el repositorio_
 _Y por ultimo solo daremos click en "Start the creation of the VirtualHost"_
-!![wampserver3](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/3.JPG)
+![wampserver3](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/3.JPG)
 
 _Para poder accerder a el virtual host, necesitamos reiniciar los DNS_
 _Para ello, damos secundario en el simbolo de WampServer, seccion Tools y "Restart DNS"_
-!![wampserver4](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/4.JPG)
+![wampserver4](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/4.JPG)
 
 _Ahora necesitamos la base de datos_
 _De nuevo en LocalHost, ahora necesitamos acceder a phpMyAdmin_
-!![DataBase1](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/5.JPG)
+![DataBase1](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/5.JPG)
 
 _Iniciamos sesion con root en MySql_
-!![DataBase2](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/6.JPG)
+![DataBase2](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/6.JPG)
 
 _Una vez adentro del PhpMyAdmin, accedemos a SQL_
-!![DataBase3](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/7.JPG)
+![DataBase3](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/7.JPG)
 
 _Ingresamos la siguiente sentencia SQL_
 
@@ -162,4 +160,97 @@ INSERT INTO `platillos` (`id_platillo`, `nombre_platillo`, `descripcion_platillo
 COMMIT;
 ```
 
+_Ahora necesitaremos un certificado_
+Descargar el certificado mas reciente de la pagina
+```
+https://curl.se/docs/caextract.html
+```
+
+_Guardarlo en:_ 
+```
+C:\wamp64\bin\php\php7.4.9
+```
+_Que es la direccion de la version de PHP que usaremos en este proyecto_
+
+_Despues en C:\wamp64\bin\php\php7.4.9 buscaremos el archivo php.ini_
+_En este archivo buscaremos los campos [curl] y [openssl], e ingresamos la direccion de donde guardamos nuestro certificado_
+
+```
+[curl]
+curl.cainfo = "C:\wamp64\bin\php\php7.4.9\extras\ssl\cacert-2021-10-26.pem"
+
+[openssl]
+openssl.cafile = "C:\wamp64\bin\php\php7.4.9\extras\ssl\cacert-2021-10-26.pem"
+```
+
 _Con todo esto, ya tenemos todo listo para correr el lado de administrador del proyecto en nuestro virtual host_
+
+
+
+# VERSION 1.1
+
+## Cambios
+### (Mas informacion y detalle de los cambios en la seccion de [Detalles](#Detalles))
+
+***
+* Eliminacion del menú rotativo
+***
+> Se eliminaron los CRUD de menu rotativo del lado de administrador, a la par que la visualizacion del menu rotativo del lado de "Ver menu".
+
+![Cambio1](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/8.JPG)
+![Cambio2](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/11.JPG)
+
+***
+* Categoria y visualizacion del menu en una sola pestaña
+***
+> Ahora en el apartado de "Productos" (Anteriormente llamado "Platillos") podemos seleccionar categoria del producto y decidir si queremos mostrar u ocularla en la vista del menu.
+![Cambio3](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/9.JPG)
+![Cambio4](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/10.JPG)
+
+***
+* Carrito de compras (Pedidos)
+***
+> El apartado de pedidos ahora es funcional, hace el calculo del total por productos y da la opcion de eliminar un conjunto completo de un mismo tipo de producto.
+![Cambio5](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/12.JPG)
+
+***
+* Boton de paypal
+***
+> Se agrego el boton de paypal que redirecciona a la aplicacion de paypal para proceder al pago mediante la aplicacion.
+
+![Cambio6](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/13.JPG)
+![Cambio7](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/14.JPG)
+![Cambio8](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/15.JPG)
+> Detalles sobre como usar esta funcionalidad en [Detalles](#Detalles)
+
+## Errores y correcciones
+
+#### Administracion de empleados
+***
+* Se resolvio el error que permitia crear empleados con correos que no fueran gmail o uabc.edu.mx
+* Se resolvio el error que permitia tener mas de una cuenta de usuario con el mismo correo
+***
+
+#### Creacion de productos
+***
+* Ahora, al momento de crear o editar un producto, todos los campos son obligatorios
+* Se cambio el nombre de la tabla de "platillos" a "productos"
+* Cada que se crea o edita un producto, se requerira de una confirmacion para proceder a guardar los cambios
+***
+
+#### Vista menu
+***
+* Se resolvio el error que no permitia al administrador ni a los empleados volver a la seccion de administracion si estaban dentro de una categoria
+* Se arreglaron los hipervinculos que redireccionaban a direcciones incorrecta y/o no existentes
+***
+
+## Detalles
+***
+* Se tomo la decision de la eliminacion del menu rotativo, ya que no se uso en el proyecto
+* Las categorias de los productos solo pueden ser cambiadas si precionamos el boton de editar, no como en la version anterior donde en la seccion "Menu" se podian cambiar categorias directamente desde un dropdown list
+* La visibilidad de los productos que se muestran en el menu estan definidas por los ultimos botones con el icono de un ojo, si el iocno tiene un ojo abierto, significa que el producto esta visible en el menu, si el icono tiene un ojo con un slash, significa que el producto no esta visible en el menu
+* Cuando nosotros seleccionamos un producto del menu, se refrescara la pagina y saldra una alerta que nos dara la opcion de ir a la seccion de "Pedidos"
+* Al presionar el boton de "Quitar", eliminaremos de la tabla de pedidos el conjunto de productos que seleccionamos
+* IMPORTANTE: Para proceder al pago de esta aplicacion, se esta usando SandBox de Paypal, son cuentas con $50,000 para hacer la pruebas necesarias, el correo de la cuenta personal que hace las compras es "sb-7jecm8804711@personal.example.com" y la contraseña es "s*[qTs74"
+* No puedo otorgar los detalles de la cuenta donde se reciben estos pagos ya que estan asociados a mi cuenta personal de PayPal. De necesitar pruebas de que los pagos estan pasando, comunicarse conmigo por Discord en el canal de "Desarrollo"
+***

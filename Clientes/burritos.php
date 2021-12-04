@@ -215,12 +215,18 @@
                                     <ul class="rd-navbar-nav">
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="./index.php">Inicio</a>
                                         </li>
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="about-us.html">Código QR</a>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="#">Código QR</a>
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="./verPedidos.php">Pedidos</a>
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="./../logout.php">Cerrar Sesión</a>
                                         </li>
+                                        <?php
+                                        if ($status == 1 || $status == 2) {
+                                            echo '<li class="rd-nav-item"><a class="rd-nav-link" href="./../Empleados/index.php"> Volver a administrador </a>
+                                            </li>';
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>

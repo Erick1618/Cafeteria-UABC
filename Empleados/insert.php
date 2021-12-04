@@ -6,29 +6,35 @@ if(isset($_POST["operation"]))
 	if($_POST["operation"] == "Add")
 	{
 		$image = '';
-		$categortia = 0;
 		$mostrar = 0;
-		if($_FILES["user_image"]["name"] != '')
-		{
-			$image = upload_image();
+
+		if ($_POST['categoria_platillo'] == 0){
+			echo 'ERROR EN EL REGISTRO: Seleccione una categoria';
 		}
-		$statement = $connection->prepare("
-			INSERT INTO platillos (nombre_platillo, descripcion_platillo, precio_platillo, categoria_platillo, foto_platillo, mostrar_platillo) 
-			VALUES (:first_name, :last_name, :precio, :categoria, :image, :mostrar)
-		");
-		$result = $statement->execute(
-			array(
-				':first_name'	=>	$_POST["first_name"],
-				':last_name'	=>	$_POST["last_name"],
-				':precio'	=>	$_POST["precio"],
-				':categoria'	=>	$_POST["categoria_platillo"],
-				':image'		=>	$image,
-				':mostrar'		=>	$mostrar
-			)
-		);
-		if(!empty($result))
-		{
-			echo 'Platillo creado';
+
+		else {
+			if($_FILES["user_image"]["name"] != '')
+			{
+				$image = upload_image();
+			}
+			$statement = $connection->prepare("
+				INSERT INTO platillos (nombre_platillo, descripcion_platillo, precio_platillo, categoria_platillo, foto_platillo, mostrar_platillo) 
+				VALUES (:first_name, :last_name, :precio, :categoria, :image, :mostrar)
+			");
+			$result = $statement->execute(
+				array(
+					':first_name'	=>	$_POST["first_name"],
+					':last_name'	=>	$_POST["last_name"],
+					':precio'	=>	$_POST["precio"],
+					':categoria'	=>	$_POST["categoria_platillo"],
+					':image'		=>	$image,
+					':mostrar'		=>	$mostrar
+				)
+			);
+			if(!empty($result))
+			{
+				echo 'Producto creado';
+			}
 		}
 	}
 	if($_POST["operation"] == "Edit")
@@ -60,7 +66,7 @@ if(isset($_POST["operation"]))
 		);
 		if(!empty($result))
 		{
-			echo 'Platillo actualizado';
+			echo 'Producto actualizado';
 		}
 	}
 }

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('#add_button').click(function(){
 		$('#user_form')[0].reset();
-		$('.modal-title').text("Nuevo platillo");
+		$('.modal-title').text("Nuevo producto");
 		$('#action').val("Add");
 		$('#operation').val("Add");
 		$('#user_uploaded_image').html('');
@@ -26,6 +26,9 @@ $(document).ready(function(){
 
 	$(document).on('submit', '#user_form', function(event){
 		event.preventDefault();
+
+		$('#user_image').prop('required',true);
+
 		var firstName = $('#first_name').val();
 		var precio = $('#precio').val();
 		var extension = $('#user_image').val().split('.').pop().toLowerCase();
@@ -38,22 +41,45 @@ $(document).ready(function(){
 				return false;
 			}
 		}	
-		if(firstName != '' && precio != '' && categoria_platillo != 0)
-		{
-			$.ajax({
-				url:"insert.php",
-				method:'POST',
-				data:new FormData(this),
-				contentType:false,
-				processData:false,
-				success:function(data)
-				{
-					alert(data);
-					$('#user_form')[0].reset();
-					$('#userModal').modal('hide');
-					dataTable.ajax.reload();
+		if(firstName != '' && precio != '' && categoria_platillo != 0) {
+
+			if($('#action').val() == "Add") {
+				if (confirm("¿Estas seguro de agregar este producto?")) {
+					$.ajax({
+						url:"insert.php",
+						method:'POST',
+						data:new FormData(this),
+						contentType:false,
+						processData:false,
+						success:function(data)
+						{
+							alert(data);
+							$('#user_form')[0].reset();
+							$('#userModal').modal('hide');
+							dataTable.ajax.reload();
+						}
+					});
 				}
-			});
+			}
+
+			if($('#action').val() == "Edit") {
+				if (confirm("¿Estas seguro de editar este producto?")) {
+					$.ajax({
+						url:"insert.php",
+						method:'POST',
+						data:new FormData(this),
+						contentType:false,
+						processData:false,
+						success:function(data)
+						{
+							alert(data);
+							$('#user_form')[0].reset();
+							$('#userModal').modal('hide');
+							dataTable.ajax.reload();
+						}
+					});
+				}
+			}
 		}
 		else
 		{
@@ -63,6 +89,7 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.update', function(){
 		var user_id = $(this).attr("id");
+		$('#user_image').prop('required',false);
 
 		$.ajax({
 			url:"fetch_single.php",
@@ -77,7 +104,7 @@ $(document).ready(function(){
 				$('#last_name').val(data.last_name);
 				$('#precio').val(data.precio);
 				$('#categoria_platillo').val(data.categoria_platillo);
-				$('.modal-title').text("Editar platillo");
+				$('.modal-title').text("Editar producto");
 				$('#user_id').val(user_id);
 				$('#user_uploaded_image').html(data.user_image);
 				$('#action').val("Edit");
@@ -88,7 +115,7 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.delete', function(){
 		var user_id = $(this).attr("id");
-		if(confirm("¿Seguro que desea eliminar este platillo?"))
+		if(confirm("¿Seguro que desea eliminar este producto?"))
 		{
 			$.ajax({
 				url:"delete.php",

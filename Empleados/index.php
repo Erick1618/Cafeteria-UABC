@@ -198,7 +198,7 @@
 				</li>
 				<li>
 					<a href="./index.php" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-cutlery"></i> Platillos
+						<i class="zmdi zmdi-cutlery"></i> Productos
 					</a>
 				</li>
 				<!-- <li>
@@ -293,7 +293,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<label for="" class="col-form-label">Nombre platillo: </label>
+									<label for="" class="col-form-label">Nombre producto: </label>
 									<input type="text" class="form-control" name="first_name" id="first_name" required>
 								</div>
 							</div>
@@ -302,7 +302,7 @@
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label for="" class="col-form-label">Descripcion: </label>
-									<input type="text" class="form-control" name="last_name" id="last_name">
+									<input type="text" class="form-control" name="last_name" id="last_name" required>
 								</div>
 							</div>
 						</div>
@@ -331,7 +331,7 @@
 							<div class="col-lg-6">
 								<div class="">
 									<label for="" class="col-form-label">Imagen: </label>
-									<input type="file" class="" name="user_image" id="user_image" accept="image/x-png, image/gif, image/jpeg">
+									<input type="file" class="" name="user_image" id="user_image" accept="image/x-png, image/gif, image/jpeg" required>
 									<span id="user_uploaded_image"></span>
 								</div>
 							</div>
@@ -358,10 +358,10 @@
 			    </div>
 			    <div class="modal-body">
 				    <p>
-                        CREACION DE PLATILLOS
+                        CREACION DE PRODUCTOS
 						<br>
 						Seccion para la creacion de platillos del menu fijo, en esta seccion solo se puede crear, editar y eliminar los platillos, los cuales
-						reuiquieren de nombre y precio obligatorios.
+						reuiquieren de todos los campos obligatorios.
 						<br>
 						SOLO IMAGENES JPG, PNG Y GIF
 				    </p>
