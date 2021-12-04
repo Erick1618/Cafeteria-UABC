@@ -216,7 +216,8 @@ _Con todo esto, ya tenemos todo listo para correr el lado de administrador del p
 ***
 * Boton de paypal
 ***
-> Se agrego el boton de paypal que redirecciona a la aplicacion de paypal para proceder al pego mediante la aplicacion.
+> Se agrego el boton de paypal que redirecciona a la aplicacion de paypal para proceder al pago mediante la aplicacion.
+
 ![Cambio6](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/13.JPG)
 ![Cambio7](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/14.JPG)
 ![Cambio8](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/15.JPG)
