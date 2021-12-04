@@ -198,10 +198,10 @@
 				</li>
 				<li>
 					<a href="./index.php" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Platillos
+						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Productos
 					</a>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="./menu.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-card zmdi-hc-fw"></i> Menu
 					</a>
@@ -215,7 +215,7 @@
 					<a href="./menu_rotativo_comida/index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Comida)
 					</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="./../Clientes/index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Ver Menu

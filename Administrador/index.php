@@ -203,10 +203,10 @@
 				</li>
 				<li>
 					<a href="./../Empleados/index.php" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-cutlery"></i> Platillos
+						<i class="zmdi zmdi-cutlery"></i> Productos
 					</a>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="./../Empleados/menu.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-menu"></i> Menu 
 					</a>
@@ -220,7 +220,7 @@
 					<a href="./../Empleados/menu_rotativo_comida/index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-cutlery"></i> Menu Rotativo (Comida)
 					</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="./../Clientes/index.php" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Ver Menu

@@ -32,16 +32,24 @@ $(document).ready(function () {
         console.log(correo_empleado);
         console.log(telefono_empleado);
 
-        $.ajax({
-            url: "bd/crud.php",
-            type: "POST",
-            datatype: "json",
-            data: { id_empleado: id_empleado, nombre_empleado: nombre_empleado, correo_empleado: correo_empleado, telefono_empleado: telefono_empleado, opcion: opcion },
-
-            success: function (data) {
-                tablaUsuarios.ajax.reload(null, false);
-            }
-        });
+        if (String.prototype.includes.call(correo_empleado, '@uabc.edu.mx') || String.prototype.includes.call(correo_empleado, '@gmail.com')) {
+            $.ajax({
+                url: "bd/crud.php",
+                type: "POST",
+                datatype: "json",
+                data: { id_empleado: id_empleado, nombre_empleado: nombre_empleado, correo_empleado: correo_empleado, telefono_empleado: telefono_empleado, opcion: opcion },
+    
+                success: function (data) {
+                    if (String.prototype.includes.call(data, 'ERROR')){
+                        alert('El correo ingresado ya existe');
+                    }
+                    tablaUsuarios.ajax.reload(null, false);
+                }
+            });
+        }
+        else
+            alert('Correo no válido');
+        
 
         $('#modalCRUD').modal('hide');
     });

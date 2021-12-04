@@ -2,7 +2,7 @@
 <html class="wide wow-animation" lang="en">
 
 <head>
-    <title> BEBIDAS </title>
+    <title> PEDIDOS </title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Agregar estilo -->
+    <link href="./css/responsive-tables.css" type="text/css" media="screen" rel="stylesheet"/>
+    <!-- Agregar el plugin JS -->   
+    <script type="text/javascript" src="./js/responsive-tables.js"></script>
     <!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
@@ -28,7 +33,6 @@
         //Include Configuration File
         include('../config.php');
         include('./pedidos.php');
-        
 
         $login_button = '';
 
@@ -151,7 +155,6 @@
         // echo '<h3><b>Name :</b> ' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '</h3>';
         // echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
         // echo '<h3><b>ID :</b> ' . $_SESSION['id'] . '</h3>';
-        
 
     ?>
 
@@ -216,11 +219,11 @@
                                 <div class="rd-navbar-main">
                                     <!-- RD Navbar Nav-->
                                     <ul class="rd-navbar-nav">
-                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="index.php">Inicio</a>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="index.php">Inicio</a>
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="#">Código QR</a>
                                         </li>
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="./verPedidos.php">Pedidos</a>
+                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="./verPedidos.php">Pedidos</a>
                                         </li>
                                         <li class="rd-nav-item"><a class="rd-nav-link" href="./../logout.php">Cerrar Sesión</a>
                                         </li>
@@ -239,85 +242,79 @@
             </div>
         </header>
 
-        <!-- Our Shop-->
-        <section class="section section-lg bg-default">
-            <div class="container">
-                <h3 class="oh-desktop"><span class="d-inline-block wow slideInUp"> Bebidas </span></h3>
+        <?php
 
-                <?php if($mensaje != ""){ ?>
-                    <div class="alert alert-success" role="alert">
-                        <?php echo $mensaje; ?>
-                        <a href="./verPedidos.php" class="btn btn-success"> Ver pedidos </a>
-                    </div>
-                <?php } ?>
+            if ($_POST){
+                $total = 0;
+                $sid = session_id();
 
-                <br><br><br>
-                
-                <div>
-                    <div class="row">
-                        <?php
-                            $sql = "SELECT * FROM platillos WHERE categoria_platillo = 2 && mostrar_platillo = 1";
-                            $result = mysqli_query($conexion, $sql);
-                            $numero = $result->num_rows;
+                foreach ($_SESSION['carrito'] as $indice => $producto) {
+                    $total = $total + ($producto['CANTIDAD'] * $producto['PRECIO']);
+                }
 
-                            if ($numero == 0) {
-                                echo '
-                                    <!-- Product-->
-                                    <div class="col-12">
-                                        <article class="product wow fadeInLeft" data-wow-delay=".15s">
-                                            <h4 class="product-title">No hay bebidas disponibles<br></h6> 
-                                        </article>
-                                    </div>
-                                ';
+                // $sentencia = "INSERT INTO ventas (clave_transaccion, paypal_datos, fecha, total, status)
+                //               VALUES ('$sid', '', NOW(), $total, pendiente)";
+
+                // $resultado = mysqli_query($conexion, $sentencia);
+
+                // $idVenta = mysqli_insert_id($conexion);
+
+                // foreach ($_SESSION['carrito'] as $indice => $producto) {
+                //     $sentencia = "INSERT INTO detalle_venta (id_venta, id_producto, precio_unitario, cantidad)
+                //                   VALUES ($idVenta, $producto[ID], $producto[PRECIO], $producto[CANTIDAD])";
+
+                //     $resultado = mysqli_query($conexion, $sentencia);
+                // }
+            }
+
+            //echo "<h3> Total: $" . number_format($total, 2) . "</h3>";
+
+        ?>
+
+        <div class="p-5 bg-light text-center">
+            <div class="container"> 
+                <h1 class="display-4"> ¡Paso Final ! </h1>
+                <hr class="my-4">
+                <p class="lead"> 
+                    Estas a punto de pagar con paypal la cantida de: 
+                    <h4>$<?php echo number_format($total, 2); ?>  </h4>
+                </p>
+
+                <!-- Set up a container element for the button -->
+                <div id="paypal-button-container"></div>
+
+                    <!-- Include the PayPal JavaScript SDK -->
+                    <script src="https://www.paypal.com/sdk/js?client-id=Aa42K8UAcyt5z9_Yx3TWyuqjkszdkNEkBZLtYrtSst9mqxnj9CeM0S9Ym3Uco0kDcbqV9aCVezsOP6eI&currency=MXN"></script>
+
+                    <script>
+                        // Render the PayPal button into #paypal-button-container
+                        paypal.Buttons({
+                            style: {
+                                layout: 'horizontal'
+                            },
+
+                            createOrder: function(data, actions) {
+                                return actions.order.create({
+                                    purchase_units: [{
+                                        amount: {
+                                            value: '<?php echo $total; ?>',
+                                            currency: 'MXN'
+                                        }
+                                    }]
+                                });
+                            },
+
+                            onApprove: function(data, actions) {
+                                return actions.order.capture().then(function(details) {
+                                    // Show a success message to the buyer
+                                    alert('PAGO REALIZADO!');
+                                    location.href = './pagoCompleto.php';
+                                });
                             }
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo '
-                                    <!-- Product-->
-                                    <div class="col-6">
-                                        <article class="product wow fadeInLeft" data-wow-delay=".15s">
-                                            <h4 class="product-title">
-                                                ' . $row["nombre_platillo"] . '<br></h6>
-                                                <div class="product-figure"><img src="./../../Empleados/upload/' . $row["foto_platillo"] . '" alt="" width="161" height="162" />
-                                                </div>
-                                                <div class="product-price-wrap">
-                                                    <div class="product-price">$ ' . $row["precio_platillo"] . '.00</div>
-                                                </div>
-                                                <br>';
-                                                
-                                                if ($row["descripcion_platillo"]){
-                                                    echo '<div class="product-description">
-                                                    <p>' . $row["descripcion_platillo"] . '</p>
-                                                    </div>';
-                                                }
-                                                
-                                                else{
-                                                    echo '<div class="product-description">
-                                                    <p>[ SIN DESCRIPCION ]</p>
-                                                    </div>';
-                                                }
-                                                echo'
-                                                <div class="product-button-sm">'; ?>
-                                                    <form action="" method="POST">
-                                                        <input type="hidden" name="id" value="<?php echo $row["id_platillo"]; ?>">
-                                                        <input type="hidden" name="nombre" value="<?php echo $row["nombre_platillo"]; ?>">
-                                                        <input type="hidden" name="precio" value="<?php echo $row["precio_platillo"]; ?>">
-                                                        <input type="hidden" name="cantidad" value="1">
-
-                                                        <div class="button-wrap"><button name="btnAccion" value="Agregar" type="submit" class="button button-xs button-secondary button-winona" href="#"> COMPRAR </div>
-                                                    </form>
-
-                                                <?php echo '</div>
-                                        </article>
-                                    </div>
-                                ';
-                            }
-                        ?>
-                    </div>
-                </div>
+                        }).render('#paypal-button-container');
+                    </script>
             </div>
-        </section>
-
+        </div>
 
         <!-- Page Footer-->
         <footer class="section footer-modern context-dark footer-modern-2">
