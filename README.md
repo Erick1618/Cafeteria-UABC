@@ -196,6 +196,7 @@ _Con todo esto, ya tenemos todo listo para correr el lado de administrador del p
 * Eliminacion del menú rotativo
 ***
 > Se eliminaron los CRUD de menu rotativo del lado de administrador, a la par que la visualizacion del menu rotativo del lado de "Ver menu".
+
 ![Cambio1](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/8.JPG)
 ![Cambio2](https://github.com/Erick1618/Cafeteria-UABC/blob/pruebas/img/readme/11.JPG)
 
