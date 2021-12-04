@@ -249,7 +249,7 @@ _Con todo esto, ya tenemos todo listo para correr el lado de administrador del p
 * Se tomo la decision de la eliminacion del menu rotativo, ya que no se uso en el proyecto
 * Las categorias de los productos solo pueden ser cambiadas si precionamos el boton de editar, no como en la version anterior donde en la seccion "Menu" se podian cambiar categorias directamente desde un dropdown list
 * La visibilidad de los productos que se muestran en el menu estan definidas por los ultimos botones con el icono de un ojo, si el iocno tiene un ojo abierto, significa que el producto esta visible en el menu, si el icono tiene un ojo con un slash, significa que el producto no esta visible en el menu
-* Cuando nosotros seleccionamos un producto del menu, se refrescara la pagina y saldra una alerta que nos dara la opcion de ir a la seccion de "Pedidos"
+* Al momento de estar en "Ver menu"; cuando nosotros seleccionamos un producto del menu, se refrescara la pagina y saldra una alerta que nos dara la opcion de ir a la seccion de "Pedidos"
 * Al presionar el boton de "Quitar", eliminaremos de la tabla de pedidos el conjunto de productos que seleccionamos
 * IMPORTANTE: Para proceder al pago de esta aplicacion, se esta usando SandBox de Paypal, son cuentas con $50,000 para hacer la pruebas necesarias, el correo de la cuenta personal que hace las compras es "sb-7jecm8804711@personal.example.com" y la contraseña es "s*[qTs74"
 * No puedo otorgar los detalles de la cuenta donde se reciben estos pagos ya que estan asociados a mi cuenta personal de PayPal. De necesitar pruebas de que los pagos estan pasando, comunicarse conmigo por Discord en el canal de "Desarrollo"
