@@ -1,6 +1,24 @@
 # Cafeteria UABC
 
-_Aplicacion para la cafeteria de UABC Sauzal (Lado de administrador compleatado)_
+_Aplicación para la cafeteria de UABC Sauzal, donde encontrarás el menú de la cafetería con precios especiales, comidas del día, el encargado de la cafetería o empleados podrán actualizar dicho menú tanto precios como las comidas, también se quiere implementar un sistema de cashback para cuando el cliente haga una compra genere un código QR y el empleado lo escaneara y le generará puntos de compra al cliente, tambien se podran hacer pedidos a domicilio unicamente dentro de la universidad junto con un chat para estar en contacto con el cliente por cualquier cosa, en sí solo existirán 2 roles, empleados y clientes en donde solo se puedan loguear con correo institucional UABC._
+
+## Integrantes del equipo
+
+- Jonathan Aviña Aviña 
+
+- Erick Augusto Olachea Ortega
+
+- Erick Gabriel Santiago Suenaga
+
+- Joel Ernesto Lopez Verdugo
+
+- Osmar Francisco Higuera Mendoza
+
+- Maria Alicia Zarate Vasquez
+
+- Johann Emanuel Peralta Mendoza
+
+- Jonathan Jared Merlin Olmedo
 
 ## Comenzando con el proyecto
 
